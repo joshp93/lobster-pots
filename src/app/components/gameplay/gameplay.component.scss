@@ -1,0 +1,35 @@
+h1 {
+    text-align: center;
+}
+.content {
+    height: 100vh;
+    margin: 0px 20% 0px 20%;
+    padding: 1rem;
+    background-color: lemonchiffon;
+    box-shadow: rgb(153, 153, 153) 0px 5px 15px;
+    font-size: large;
+}
+.alert {
+    font-weight: bold;
+}
+.buttons {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(100px, 250px) );
+
+    button {
+        border: none;
+        margin-top: 1rem;
+        margin-right: 1rem;
+        font-family: inherit;
+        font-size: large;
+        padding: 0.5rem;
+        box-shadow: rgb(153, 153, 153) 0px 5px 15px;
+        transition: outline 0.2s;
+        outline: 0px solid lightblue;
+        border-radius: 5px;
+    }
+    button:focus,
+    button:hover {
+        outline: 1px solid lightblue;
+    }
+}

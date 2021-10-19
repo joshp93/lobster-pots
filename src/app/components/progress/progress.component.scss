@@ -1,0 +1,16 @@
+table {
+    background-color: lemonchiffon;
+    box-shadow: rgb(153, 153, 153) 0px 5px 15px;
+    font-size: x-large;
+    border-radius: 0px 0px 5px 0px;
+    td {
+        border-right: 1px solid;
+        padding: 0.5rem;
+    }
+    td:last-of-type {
+        border-right: none;
+    }
+}
+table:focus {
+    outline: 3px solid lightblue;
+}
