@@ -11,11 +11,17 @@ export class ProgressService {
 
   constructor(private coolSessionStorage: CoolSessionStorage) { 
     if (!sessionStorage.getItem('day')) {
-      this.openingCash = 80;
-      this.openingPots = 5;
-      this.day = 1;
+      this.newGame();
     }
   }
+  
+  newGame() {
+    sessionStorage.clear();
+    this.openingCash = GAME_SETTINGS.openingCash;
+    this.openingPots = GAME_SETTINGS.openingPots;
+    this.day = GAME_SETTINGS.startDay;
+  }
+
   get openingCash(): number {
     return parseInt(sessionStorage.getItem('openingCash') || '0');
   }
@@ -100,4 +106,10 @@ export class ProgressService {
     this.coolSessionStorage.setObject('roundResults', value);
   }
 
+  get gameOver(): boolean {
+    return sessionStorage.getItem('gameOver') === 'true';
+  }
+  set gameOver(value: boolean) {
+    sessionStorage.setItem('gameOver', value.toString());
+  }
 }

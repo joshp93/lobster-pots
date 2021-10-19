@@ -1,19 +1,56 @@
 <div class="content">
-    <h1>{{ roundSetup.title }}</h1>
-    <p>{{ roundSetup.info }}</p>
-    <br>
-    <p>{{ roundSetup.weatherConditionsDescription }}</p>
-    <p [class.alert]="roundSetup.alert">{{ roundSetup.marketConditionsDescription }}</p>
-    <ul>
-        <li>Pot price: {{ roundSetup.potPrice }}</li>
-        <li>Price for onshore lobster: {{ roundSetup.onshorePrice }}</li>
-        <li>Price for offshore lobster: {{ roundSetup.offshorePrice }}</li>
-    </ul>
-    <p>What would you like to do?</p>
-    <div class="buttons">
-        <button type="submit" (click)="gameplayService.buyPot(roundSetup)">💰 Buy Pot ({{ roundSetup.potPrice }}💰)</button>
-        <button type="submit" (click)="gameplayService.placeOnshore()">🏖 Place Onshore ({{ roundSetup.onshorePrice }}💰)</button>
-        <button type="submit" (click)="gameplayService.placeOffshore()">🌊 Place Offshore ({{ roundSetup.offshorePrice }}💰)</button>
-        <button type="submit" (click)="gameplayService.goLobstering()">🦞 Go Lobstering!</button>
-    </div>
+    <ng-container *ngIf="progressService.gameOver;else gameTemplate">
+        <h1>Game Over!</h1>
+        <div class="buttons">
+            <button type="submit" (click)="startOver()">Start Over!</button>
+        </div>
+    </ng-container>
+    <ng-template #gameTemplate>
+        <ng-container *ngIf="!roundResults.title;else roundResultTemplate">
+            <h1>{{ roundSetup.title }}</h1>
+            <p>{{ roundSetup.info }}</p>
+            <br>
+            <p [class.alert]="roundSetup.weatherAlert">{{ roundSetup.weatherConditionsDescription }}</p>
+            <p [class.alert]="roundSetup.marketAlert">{{ roundSetup.marketConditionsDescription }}</p>
+            <p [class.alert]="roundSetup.rentDue" *ngIf="roundSetup.rentDue && !roundSetup.rentDueTomorrow">{{
+                roundSetup.rentValue }}💰 in rent has been taken from you!</p>
+            <p [class.alert]="roundSetup.rentDueTomorrow" *ngIf="roundSetup.rentDueTomorrow && !roundSetup.rentWarning">
+                {{ roundSetup.rentValue }}💰 in rent will be taken from you tomorrow!</p>
+            <p [class.alert]="roundSetup.rentDueTomorrow" *ngIf="roundSetup.rentDueTomorrow && roundSetup.rentWarning">
+                {{ roundSetup.rentValue }}💰 in rent will be taken from you tomorrow! Ye don't have enought money at the
+                moment! Get Lobstering!</p>
+            <ul>
+                <li>Pot price: {{ roundSetup.potPrice }}</li>
+                <li>Price for onshore lobster: {{ roundSetup.onshorePrice }}</li>
+                <li>Price for offshore lobster: {{ roundSetup.offshorePrice }}</li>
+            </ul>
+            <p>What say ye?</p>
+            <div class="buttons">
+                <button type="submit" (click)="gameplayService.buyPot(roundSetup)">💰 Buy Pot ({{ roundSetup.potPrice
+                    }}💰)</button>
+                <button type="submit" (click)="gameplayService.placeOnshore()">🏖 Place Onshore ({{
+                    roundSetup.onshorePrice
+                    }}💰)</button>
+                <button type="submit" (click)="gameplayService.placeOnshore(true)">🏖 Remove Onshore</button>
+                <button type="submit" (click)="gameplayService.placeOffshore()">🌊 Place Offshore ({{
+                    roundSetup.offshorePrice }}💰)</button>
+                <button type="submit" (click)="gameplayService.placeOffshore(true)">🌊 Remove Offshore</button>
+                <button type="submit" (click)="goLobstering()">🦞 Go Lobstering!</button>
+            </div>
+        </ng-container>
+        <ng-template #roundResultTemplate>
+            <h1>{{ roundResults.title }}</h1>
+            <br>
+            <p>{{ roundResults.weatherConditionsDescription }}</p>
+            <p *ngIf="roundResults.potsLost">Ye lost {{ roundResults.potsLost }}🏺 to the storm!</p>
+            <p *ngIf="roundResults.lobstersCaught > 0;else failTemplate">Ye caught {{ roundResults.lobstersCaught }}🦞
+                and made {{ roundResults.income }}💰</p>
+            <ng-template #failTemplate>
+                <p>You didn't catch any 🦞 or make any 💰. Better luck next time!</p>
+            </ng-template>
+            <div class="buttons">
+                <button type="submit" (click)="nextDay()">☀ Go To Next Day...</button>
+            </div>
+        </ng-template>
+    </ng-template>
 </div>

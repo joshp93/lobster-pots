@@ -6,33 +6,17 @@ export class RoundSetup {
     info: string = "";
     weatherConditions: WeatherConditions = WeatherConditions.normal;
     weatherConditionsDescription: string = "";
+    weatherAlert: boolean = false;
     marketConditions: MarketConditions = MarketConditions.normal;
     marketConditionsDescription: string = "";
-    alert: boolean = false;
+    marketAlert: boolean = false;
     potPrice: number = 0;
     onshorePrice: number = 0;
     offshorePrice: number = 0;
     goodWeatherMax: number = 0;
     catchChanceMax: number = 0;
-
-    constructor(title?: string, info?: string, weatherConditions?: WeatherConditions, weatherConditionsDescription?: string,
-        alert?: boolean, potPrice?: number, onshorePrice?: number, offshorePrice?: number, marketConditions?: MarketConditions,
-        marketConditionsDescription?: string, goodWeatherMax?: number, catchChanceMax?: number) {
-        if (!(title && info && weatherConditions && weatherConditionsDescription && alert && onshorePrice && offshorePrice && potPrice &&
-            marketConditions && marketConditionsDescription && goodWeatherMax && catchChanceMax)) {
-            return;
-        }
-        this.title = title;
-        this.info = info;
-        this.alert = alert;
-        this.onshorePrice = onshorePrice;
-        this.offshorePrice = offshorePrice;
-        this.potPrice = potPrice;
-        this.weatherConditions = weatherConditions;
-        this.weatherConditionsDescription = weatherConditionsDescription;
-        this.marketConditions = marketConditions;
-        this.marketConditionsDescription = marketConditionsDescription;
-        this.goodWeatherMax = goodWeatherMax;
-        this.catchChanceMax = catchChanceMax;
-    }
+    rentDue: boolean = false;
+    rentDueTomorrow: boolean = false;
+    rentValue: number = 0;
+    rentWarning: boolean = false;
 }

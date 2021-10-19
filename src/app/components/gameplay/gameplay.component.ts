@@ -13,7 +13,7 @@ export class GameplayComponent implements OnInit {
   roundSetup: RoundSetup;
   roundResults: RoundResults = new RoundResults();
 
-  constructor(public gameplayService: GameplayService, private progressService: ProgressService) {
+  constructor(public gameplayService: GameplayService, public progressService: ProgressService) {
     if (progressService.roundSetup === null) {
       this.roundSetup = gameplayService.getRoundSetup();
     } else {
@@ -23,5 +23,19 @@ export class GameplayComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  goLobstering() {
+    this.roundResults = this.gameplayService.goLobstering(this.roundSetup);
+  }
+
+  nextDay() {
+    this.progressService.day += 1;
+    this.roundResults = new RoundResults();
+    this.roundSetup = this.gameplayService.getRoundSetup();
+  }
+
+  startOver() {
+    this.progressService.newGame();
   }
 }
