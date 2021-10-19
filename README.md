@@ -1,5 +1,9 @@
 # LobsterPots
 
+A fun game I have written in angular, based on an existing game!
+
+# Angular Info
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
 
 ## Development server
