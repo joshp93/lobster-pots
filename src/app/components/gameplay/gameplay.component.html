@@ -1,6 +1,15 @@
 <div class="content">
     <ng-container *ngIf="progressService.gameOver;else gameTemplate">
         <h1>Game Over!</h1>
+        <p *ngIf="progressService.day * progressService.totalLobstersCaught < 100">
+            Looks like ye need more practice matey!
+        </p>
+        <p *ngIf="progressService.day * progressService.totalLobstersCaught < 200 && progressService.day * progressService.totalLobstersCaught > 99">
+            Avast me hearty! You were not so bad out there!
+        </p>
+        <p *ngIf="progressService.day * progressService.totalLobstersCaught > 199">
+            Blow me down! yer a bona fide lobster lover! Good job matey!
+        </p>
         <div class="buttons">
             <button type="submit" (click)="startOver()">Start Over!</button>
         </div>
