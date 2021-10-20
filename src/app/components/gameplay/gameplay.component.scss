@@ -41,7 +41,7 @@ h1 {
         width: 100%;
         td {
             border-bottom: 2px solid rgba(250, 128, 114, 0.5);
-            padding: 0.2rem;
+            padding: 1rem 0.2rem 0.6rem 0.2rem;
         }
         .price {
             min-width: 36px;
@@ -49,6 +49,14 @@ h1 {
         }
         .actions {
             min-width: 75px;
+            display: flex;
+            flex-direction: row;
+            :last-child {
+                margin-left: auto;
+            }
+            button {
+                width: 40%;
+            }
         }
     }
     .alert {
