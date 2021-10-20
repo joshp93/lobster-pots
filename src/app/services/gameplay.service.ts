@@ -62,7 +62,7 @@ export class GameplayService {
     roundSetup.weatherConditions = WeatherConditions.perfect;
     roundSetup.goodWeatherMax = GAME_SETTINGS.goodWeatherMax;
     roundSetup.weatherAlert = false;
-    roundSetup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[WeatherConditions.perfect]} today! A good day to start. There is only a ${100 - roundSetup.goodWeatherMax}% chance of a storm.`;
+    roundSetup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[WeatherConditions.perfect]} today! A good day to start. There is only a ${GAME_SETTINGS.randomNumberMax - roundSetup.goodWeatherMax}% chance of a storm.`;
     roundSetup.marketAlert = false
     roundSetup.potPrice = GAME_SETTINGS.potPrice;
     roundSetup.onshorePrice = GAME_SETTINGS.onshorePrice;
@@ -86,7 +86,7 @@ export class GameplayService {
     roundSetup.marketAlert = false;
     roundSetup.weatherConditions = this.getRandomFromEnum(WeatherConditions);
     roundSetup.goodWeatherMax = (GAME_SETTINGS.goodWeatherMax - (roundSetup.weatherConditions * 10));
-    roundSetup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[roundSetup.weatherConditions]} today. There is a ${100 - roundSetup.goodWeatherMax}% chance of a storm:`;
+    roundSetup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[roundSetup.weatherConditions]} today. There is a ${GAME_SETTINGS.randomNumberMax - roundSetup.goodWeatherMax}% chance of a storm:`;
     roundSetup.weatherAlert = (roundSetup.goodWeatherMax < 60);
     roundSetup.marketConditions = this.getRandomFromEnum(MarketConditions);
     roundSetup.marketConditionsDescription = `The lobster market is ${MarketConditions[MarketConditions.normal]} today.`;
@@ -226,7 +226,7 @@ export class GameplayService {
   }
 
   private generateWeatherConditions(roundSetup: RoundSetup, roundResults: RoundResults) {
-    const weatherChance = Math.floor(Math.random() * 100) + 1;
+    const weatherChance = Math.floor(Math.random() * GAME_SETTINGS.randomNumberMax) + 1;
     if (weatherChance > roundSetup.goodWeatherMax) {
       roundResults.weatherConditions = WeatherConditions.evil;
       if (this.progressService.potsOffshore > 0) {
@@ -246,7 +246,7 @@ export class GameplayService {
   }
 
   private generateCatchResult(roundSetup: RoundSetup): boolean {
-    let catchChance = Math.floor(Math.random() * 100) + 1;
+    let catchChance = Math.floor(Math.random() * GAME_SETTINGS.randomNumberMax) + 1;
     const caught = (catchChance < roundSetup.catchChanceMax);
     return caught;
   }
