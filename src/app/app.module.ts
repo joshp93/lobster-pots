@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { GameplayComponent } from './components/gameplay/gameplay.component';
 import { CoolStorageModule } from '@angular-cool/storage';
+import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProgressComponent,
-    GameplayComponent
+    GameplayComponent,
+    HowToPlayComponent
   ],
   imports: [
     BrowserModule,

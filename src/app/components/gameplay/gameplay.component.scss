@@ -24,17 +24,14 @@ h1 {
         font-size: 1rem;
         padding: 0.5rem;
         transition: outline 0.2s;
-        outline: 0px solid lightblue;
         border-radius: 5px;
         background-color: rgba(46, 241, 255, 0.7);
     }
     .add {
         background-color: lightgreen;
-        outline: 0px solid lightgreen;
     }
     .remove {
         background-color: salmon;
-        outline: 0px solid salmon;
     }
     button:focus,
     button:hover {

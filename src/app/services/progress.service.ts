@@ -112,4 +112,10 @@ export class ProgressService {
   set gameOver(value: boolean) {
     sessionStorage.setItem('gameOver', value.toString());
   }
+  get gameOverReason(): string {
+    return sessionStorage.getItem('gameOverReason') || '';
+  }
+  set gameOverReason(value: string) {
+    sessionStorage.setItem('gameOverReason', value.toString());
+  }
 }

@@ -1,0 +1,27 @@
+<button class="showHowToPlayButton" (click)="showHowToPlay = !showHowToPlay;">
+    How to Play
+</button>
+<div class="howToPlay" [class.hidden]="!showHowToPlay">
+    <div class="close">
+        <button (click)="showHowToPlay = !showHowToPlay;">X</button>
+    </div>
+    <div class="content">
+    <h2>How to Play</h2>
+    <p>Welcome to Lobster Pots. A game which tests your seaworthiness and entrepreneurial flare!</p>
+        <p>You have recently opened for business as a lobster catcher.
+        The objective of the game is to last as many days as possible before going bankrupt!
+        You earn pieces of eight by catching lobsters in your lobster pots and selling them.
+        At the end of each week the rent is due! If you cannot afford to pay then the game is over!</p>
+        <p>You are given {{ gameSettings.openingCash }} pieces of eight (💰) and {{ gameSettings.openingPots }} lobster pots (🏺) to start with.
+        Each day you have 3 choices to make before setting out to sea...</p>
+        <ul>
+            <li><strong>Place pots onshore:</strong> You can place 1 or more pots onshore (🏖). This is the lowest risk option, but lobsters caught onshore are lower quality, so have the lowest value.</li>
+            <li><strong>Place pots offshore:</strong> You can place 1 or more pots offshore (🌊). This is a more risky option, storms will wash away your pots! However, offshore lobsters are worth more than double the price of onshore ones!</li>
+            <li><strong>Buy or sell pots:</strong> In addition to placing lobster pots, you can also choose to buy or sell them. The more lobster pots you have, the more pieces of eight you can make! Selling pots gives guaranteed income for that day. Pots are always sold for half the purchase value.</li>
+        </ul>
+        <p>Everyday the weather forecast will predict the chance of a storm. If there is a storm in the night, all offshore pots are lost to the sea!</p>
+        <p>In addition, each day brings new challenges on the lobster market! For example, there might be a lobster shortage, where lobsters are harder to catch, but worth double.</p>
+        <p>At the end of each week (every {{ gameSettings.rentInterval }} days) the rent is due. The pieces of eight will automatically be taken out of you income. but if you can't afford to pay, the game is over! The game will also end if at the start of a new round you don't have any pots left and you can't afford to buy any.</p>
+        <p><strong>Get lobstering me hearty!</strong></p>
+    </div>
+</div>

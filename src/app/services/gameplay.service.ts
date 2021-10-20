@@ -24,12 +24,12 @@ export class GameplayService {
       return this.dayOneRoundSetup();
     }
 
-
     let roundSetup = new RoundSetup();
     roundSetup.rentDue = (this.progressService.day % GAME_SETTINGS.rentInterval === 0);
     roundSetup.rentDueTomorrow = ((this.progressService.day + 1) % GAME_SETTINGS.rentInterval === 0);
     roundSetup.rentWarning = roundSetup.rentDueTomorrow && (this.progressService.netProfit < GAME_SETTINGS.rentValue);
     roundSetup.rentValue = GAME_SETTINGS.rentValue;
+    this.setBasicRoundSetup(roundSetup);
     this.progressService.gameOver = this.checkGameOver(roundSetup);
     if (this.progressService.gameOver) {
       return this.setRoundSetup(roundSetup);
@@ -37,7 +37,6 @@ export class GameplayService {
     if (roundSetup.rentDue) {
       this.progressService.income -= GAME_SETTINGS.rentValue;
     }
-    this.setBasicRoundSetup(roundSetup);
     this.setMarketConditions(roundSetup);
     return this.setRoundSetup(roundSetup);
   }
@@ -45,10 +44,15 @@ export class GameplayService {
   private checkGameOver(roundSetup: RoundSetup): boolean {
     if (roundSetup.rentDue) {
       if (this.progressService.netProfit < GAME_SETTINGS.rentValue) {
+        this.progressService.gameOverReason = "Ye couldn't pay the rent!";
         return true;
       }
     }
-    return (this.progressService.netProfit < roundSetup.potPrice) && this.progressService.totalPots < 1;
+    if ((this.progressService.netProfit < roundSetup.potPrice) && this.progressService.totalPots < 1) {
+      this.progressService.gameOverReason = "Ye have no more pots and ye can't afford to buy them!";
+      return true;
+    }
+    return false;
   }
 
   private dayOneRoundSetup(): RoundSetup {
@@ -143,16 +147,22 @@ export class GameplayService {
     this.progressService.potSpendings += roundSetup.potPrice;
   }
 
+  sellPot(roundSetup: RoundSetup) {
+    if (this.progressService.totalPots < 1) {
+      return;
+    }
+    this.progressService.potsBought -= 1;
+    this.progressService.potSpendings -= (roundSetup.potPrice / 2);
+  }
+
   placeOnshore(remove?: boolean) {
     if (remove) {
       if (this.progressService.potsOnshore < 1) {
-        alert("Ye don't have any 🏺 onshore!");
         return;
       }
       this.progressService.potsOnshore -= 1;
     } else {
       if (this.progressService.totalPots < 1) {
-        alert("Ye don't have any 🏺!");
         return;
       }
       this.progressService.potsOnshore += 1;
@@ -162,13 +172,11 @@ export class GameplayService {
   placeOffshore(remove?: boolean) {
     if (remove) {
       if (this.progressService.potsOffshore < 1) {
-        alert("Ye don't have any 🏺 offshore!");
         return;
       }
       this.progressService.potsOffshore -= 1;
     } else {
       if (this.progressService.totalPots < 1) {
-        alert("Ye don't have any 🏺!");
         return;
       }
       this.progressService.potsOffshore += 1;
