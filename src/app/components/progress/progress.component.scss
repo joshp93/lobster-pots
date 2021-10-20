@@ -1,7 +1,7 @@
 table {
     background-color: lemonchiffon;
     box-shadow: rgb(153, 153, 153) 0px 5px 15px;
-    font-size: x-large;
+    font-size: 1.5rem;
     border-radius: 0px 0px 5px 0px;
     td {
         border-right: 1px solid;
@@ -9,6 +9,10 @@ table {
     }
     td:last-of-type {
         border-right: none;
+    }
+    img {
+        height: 2rem;
+        width: 2rem;
     }
 }
 table:focus {

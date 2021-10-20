@@ -1,35 +1,72 @@
 h1 {
     text-align: center;
+    @media only screen and (max-width: 1142px) {
+        margin-top: 60px;
+    }
 }
 .content {
-    height: 100vh;
+    min-height: 100vh;
+    max-height: fit-content;
     margin: 0px 20% 0px 20%;
     padding: 1rem;
     background-color: lemonchiffon;
     box-shadow: rgb(153, 153, 153) 0px 5px 15px;
-    font-size: large;
-}
-.alert {
-    font-weight: bold;
-}
-.buttons {
-    display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(100px, 250px) );
-
+    font-size: 1.5rem;
+    animation: font-weight, background-color 0.2s;
+    img {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
     button {
         border: none;
-        margin-top: 1rem;
-        margin-right: 1rem;
+        margin-right: 2px;
         font-family: inherit;
-        font-size: large;
+        font-size: 1rem;
         padding: 0.5rem;
-        box-shadow: rgb(153, 153, 153) 0px 5px 15px;
         transition: outline 0.2s;
         outline: 0px solid lightblue;
         border-radius: 5px;
+        background-color: rgba(46, 241, 255, 0.7);
+    }
+    .add {
+        background-color: lightgreen;
+        outline: 0px solid lightgreen;
+    }
+    .remove {
+        background-color: salmon;
+        outline: 0px solid salmon;
     }
     button:focus,
     button:hover {
-        outline: 1px solid lightblue;
+        outline: 2px solid;
+    }
+    table {
+        width: 100%;
+        td {
+            border-bottom: 2px solid rgba(250, 128, 114, 0.5);
+            padding: 0.2rem;
+        }
+        .price {
+            min-width: 36px;
+            text-align: right;
+        }
+        .actions {
+            min-width: 75px;
+        }
+    }
+    .alert {
+        font-weight: bold;
+        background-color: rgba(250, 128, 114, 0.5);
+    }
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        button {
+            background-color: lightgreen;
+        }
+    }
+    @media only screen and (max-width: 750px) {
+        margin: 0%;
     }
 }

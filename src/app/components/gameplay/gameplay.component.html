@@ -9,7 +9,6 @@
         <ng-container *ngIf="!roundResults.title;else roundResultTemplate">
             <h1>{{ roundSetup.title }}</h1>
             <p>{{ roundSetup.info }}</p>
-            <br>
             <p [class.alert]="roundSetup.weatherAlert">{{ roundSetup.weatherConditionsDescription }}</p>
             <p [class.alert]="roundSetup.marketAlert">{{ roundSetup.marketConditionsDescription }}</p>
             <p [class.alert]="roundSetup.rentDue" *ngIf="roundSetup.rentDue && !roundSetup.rentDueTomorrow">{{
@@ -19,23 +18,30 @@
             <p [class.alert]="roundSetup.rentDueTomorrow" *ngIf="roundSetup.rentDueTomorrow && roundSetup.rentWarning">
                 {{ roundSetup.rentValue }}💰 in rent will be taken from you tomorrow! Ye don't have enought money at the
                 moment! Get Lobstering!</p>
-            <ul>
-                <li>Pot price: {{ roundSetup.potPrice }}</li>
-                <li>Price for onshore lobster: {{ roundSetup.onshorePrice }}</li>
-                <li>Price for offshore lobster: {{ roundSetup.offshorePrice }}</li>
-            </ul>
-            <p>What say ye?</p>
+            <table>
+                <tr>
+                    <td>🏺</td>
+                    <td class="price">{{ roundSetup.potPrice }}💰</td>
+                    <td class="actions"><button class="add" type="submit" (click)="gameplayService.buyPot(roundSetup)">Buy</button></td>
+                </tr>
+                <tr>
+                    <td><img src="../../../assets/lobster.png" alt="Lobster image"> Price onshore</td>
+                    <td class="price">{{ roundSetup.onshorePrice }}💰</td>
+                    <td class="actions"><button class="add" type="submit" (click)="gameplayService.placeOnshore()">Place</button>
+                        <button class="remove" type="submit" (click)="gameplayService.placeOnshore(true)">Remove</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="../../../assets/lobster.png" alt="Lobster image"> Price offshore</td>
+                    <td class="price">{{ roundSetup.offshorePrice }}💰</td>
+                    <td class="actions"><button class="add" type="submit" (click)="gameplayService.placeOffshore()">Place</button>
+                        <button class="remove" type="submit" (click)="gameplayService.placeOffshore(true)">Remove</button>
+                    </td>
+                </tr>
+            </table>
             <div class="buttons">
-                <button type="submit" (click)="gameplayService.buyPot(roundSetup)">💰 Buy Pot ({{ roundSetup.potPrice
-                    }}💰)</button>
-                <button type="submit" (click)="gameplayService.placeOnshore()">🏖 Place Onshore ({{
-                    roundSetup.onshorePrice
-                    }}💰)</button>
-                <button type="submit" (click)="gameplayService.placeOnshore(true)">🏖 Remove Onshore</button>
-                <button type="submit" (click)="gameplayService.placeOffshore()">🌊 Place Offshore ({{
-                    roundSetup.offshorePrice }}💰)</button>
-                <button type="submit" (click)="gameplayService.placeOffshore(true)">🌊 Remove Offshore</button>
-                <button type="submit" (click)="goLobstering()">🦞 Go Lobstering!</button>
+                <button type="submit" (click)="goLobstering()"><img src="../../../assets/lobster.png"
+                        alt="Lobster image"> Go Lobstering!</button>
             </div>
         </ng-container>
         <ng-template #roundResultTemplate>
@@ -43,10 +49,11 @@
             <br>
             <p>{{ roundResults.weatherConditionsDescription }}</p>
             <p *ngIf="roundResults.potsLost">Ye lost {{ roundResults.potsLost }}🏺 to the storm!</p>
-            <p *ngIf="roundResults.lobstersCaught > 0;else failTemplate">Ye caught {{ roundResults.lobstersCaught }}🦞
+            <p *ngIf="roundResults.lobstersCaught > 0;else failTemplate">Ye caught {{ roundResults.lobstersCaught }}<img
+                    src="../../../assets/lobster.png" alt="Lobster image">
                 and made {{ roundResults.income }}💰</p>
             <ng-template #failTemplate>
-                <p>You didn't catch any 🦞 or make any 💰. Better luck next time!</p>
+                <p>You didn't catch any <img src="../../../assets/lobster.png" alt="Lobster"> or make any 💰. Better luck next time!</p>
             </ng-template>
             <div class="buttons">
                 <button type="submit" (click)="nextDay()">☀ Go To Next Day...</button>

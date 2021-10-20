@@ -6,7 +6,18 @@ html,
 body {
     margin: 0px;
     border: 0px;
+    padding: none;
     font-family: 'Quicksand', sans-serif;
     height: 100%;
     background-color: lightsalmon;
+    @media only screen and (max-width: 710px) {
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 545px) {
+        font-size: 10px;
+    }
+}
+img {
+    height: 16px;
+    width: 16px;
 }

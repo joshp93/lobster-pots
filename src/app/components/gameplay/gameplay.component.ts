@@ -36,6 +36,9 @@ export class GameplayComponent implements OnInit {
   }
 
   startOver() {
+    this.roundResults = new RoundResults();
+    this.roundSetup = new RoundSetup();
     this.progressService.newGame();
+    this.roundSetup = this.gameplayService.getRoundSetup();
   }
 }
