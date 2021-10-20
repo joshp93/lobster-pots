@@ -35,13 +35,13 @@
                 {{ roundSetup.rentValue }}💰 in rent will be taken from ye tomorrow!</p>
             <p [class.alert]="roundSetup.rentDueTomorrow" *ngIf="roundSetup.rentDueTomorrow && roundSetup.rentWarning">
                 {{ roundSetup.rentValue }}💰 in rent will be taken from ye tomorrow! Ye don't have enough money at the
-                moment! Get Lobstering!</p>
+                moment! Get lobstering!</p>
             <table>
                 <tr>
                     <td>🏺</td>
                     <td class="price">{{ roundSetup.potPrice }}💰</td>
                     <td class="actions">
-                        <button class="add" type="submit" (click)="gameplayService.buyPot(roundSetup)">Buy</button>
+                        <button class="add" type="submit" (click)="buyPot()">Buy</button>
                         <button class="remove" type="submit" (click)="gameplayService.sellPot(roundSetup)">Sell</button>
                     </td>
                 </tr>

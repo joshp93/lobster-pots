@@ -9,5 +9,6 @@ export const GAME_SETTINGS = {
     goodWeatherMax: 90,
     catchChanceMax: 70,
     rentValue: 80,
-    rentInterval: 7
+    rentInterval: 7,
+    rentIncreaseInterval: 10
 }

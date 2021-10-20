@@ -20,6 +20,7 @@ export class ProgressService {
     this.openingCash = GAME_SETTINGS.openingCash;
     this.openingPots = GAME_SETTINGS.openingPots;
     this.day = GAME_SETTINGS.startDay;
+    this.rentMultiplier = 1;
   }
 
   get openingCash(): number {
@@ -75,8 +76,12 @@ export class ProgressService {
     return (this.openingCash + this.income) - this.potSpendings
   }
 
-  get totalPots(): number {
+  get availablePots(): number {
     return (this.openingPots + this.potsBought) - (this.potsOnshore + this.potsOffshore);
+  }
+
+  get totalPots(): number {
+    return (this.openingPots + this.potsBought);
   }
 
   get day(): number {
@@ -112,10 +117,23 @@ export class ProgressService {
   set gameOver(value: boolean) {
     sessionStorage.setItem('gameOver', value.toString());
   }
+
   get gameOverReason(): string {
     return sessionStorage.getItem('gameOverReason') || '';
   }
   set gameOverReason(value: string) {
     sessionStorage.setItem('gameOverReason', value.toString());
   }
+
+  get rentMultiplier(): number {
+    return parseInt(sessionStorage.getItem('rentMultiplier') || '0');
+  }
+  set rentMultiplier(value: number) {
+    sessionStorage.setItem('rentMultiplier', value.toString());
+  }
+
+  get rentValue(): number {
+    return GAME_SETTINGS.rentValue * this.rentMultiplier;
+  }
+
 }

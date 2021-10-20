@@ -25,6 +25,10 @@ export class GameplayComponent implements OnInit {
     
   }
 
+  buyPot() {
+    this.roundSetup = this.gameplayService.buyPot(this.roundSetup);
+  }
+
   goLobstering() {
     this.roundResults = this.gameplayService.goLobstering(this.roundSetup);
   }

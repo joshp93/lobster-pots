@@ -27,15 +27,15 @@ export class GameplayService {
     let roundSetup = new RoundSetup();
     roundSetup.rentDue = (this.progressService.day % GAME_SETTINGS.rentInterval === 0);
     roundSetup.rentDueTomorrow = ((this.progressService.day + 1) % GAME_SETTINGS.rentInterval === 0);
-    roundSetup.rentWarning = roundSetup.rentDueTomorrow && (this.progressService.netProfit < GAME_SETTINGS.rentValue);
-    roundSetup.rentValue = GAME_SETTINGS.rentValue;
+    roundSetup.rentWarning = roundSetup.rentDueTomorrow && (this.progressService.netProfit < this.progressService.rentValue);
+    roundSetup.rentValue = this.progressService.rentValue;
     this.setBasicRoundSetup(roundSetup);
     this.progressService.gameOver = this.checkGameOver(roundSetup);
     if (this.progressService.gameOver) {
       return this.setRoundSetup(roundSetup);
     }
     if (roundSetup.rentDue) {
-      this.progressService.income -= GAME_SETTINGS.rentValue;
+      this.progressService.income -= this.progressService.rentValue;
     }
     this.setMarketConditions(roundSetup);
     return this.setRoundSetup(roundSetup);
@@ -43,12 +43,12 @@ export class GameplayService {
 
   private checkGameOver(roundSetup: RoundSetup): boolean {
     if (roundSetup.rentDue) {
-      if (this.progressService.netProfit < GAME_SETTINGS.rentValue) {
+      if (this.progressService.netProfit < this.progressService.rentValue) {
         this.progressService.gameOverReason = "Ye couldn't pay the rent!";
         return true;
       }
     }
-    if ((this.progressService.netProfit < roundSetup.potPrice) && this.progressService.totalPots < 1) {
+    if ((this.progressService.netProfit < roundSetup.potPrice) && this.progressService.availablePots < 1) {
       this.progressService.gameOverReason = "Ye have no more pots and ye can't afford to buy them!";
       return true;
     }
@@ -140,17 +140,26 @@ export class GameplayService {
     return count
   }
 
-  buyPot(roundSetup: RoundSetup) {
+  buyPot(roundSetup: RoundSetup): RoundSetup {
     if (this.progressService.netProfit < roundSetup.potPrice) {
       alert("Ye don't have enough 💰");
-      return;
+      return roundSetup;
     }
     this.progressService.potsBought += 1;
     this.progressService.potSpendings += roundSetup.potPrice;
+    if (this.progressService.totalPots % GAME_SETTINGS.rentIncreaseInterval === 0) {
+      const newRentMultiplier = (this.progressService.totalPots / GAME_SETTINGS.rentIncreaseInterval) + 1;
+      if (this.progressService.rentMultiplier < newRentMultiplier) {
+        this.progressService.rentMultiplier = newRentMultiplier;
+        roundSetup.info = `Avast matey! with the purchase of your ${this.progressService.totalPots}th pot, you had to move to a bigger premises. Your rent is now ${this.progressService.rentValue}💰!`;
+        this.progressService.roundSetup = roundSetup;
+      }
+    }
+    return roundSetup;
   }
 
   sellPot(roundSetup: RoundSetup) {
-    if (this.progressService.totalPots < 1) {
+    if (this.progressService.availablePots < 1) {
       return;
     }
     this.progressService.potsBought -= 1;
@@ -164,7 +173,7 @@ export class GameplayService {
       }
       this.progressService.potsOnshore -= 1;
     } else {
-      if (this.progressService.totalPots < 1) {
+      if (this.progressService.availablePots < 1) {
         return;
       }
       this.progressService.potsOnshore += 1;
@@ -178,7 +187,7 @@ export class GameplayService {
       }
       this.progressService.potsOffshore -= 1;
     } else {
-      if (this.progressService.totalPots < 1) {
+      if (this.progressService.availablePots < 1) {
         return;
       }
       this.progressService.potsOffshore += 1;
@@ -245,7 +254,7 @@ export class GameplayService {
         roundResults.weatherConditionsDescription = `Despite the forecast, there was no storm in the night!`;
       } else {
         roundResults.weatherConditions = roundSetup.weatherConditions;
-        roundResults.weatherConditionsDescription = `The weather was ${WeatherConditions[roundSetup.weatherConditions]} overnight as forecast... But no storm!`;
+        roundResults.weatherConditionsDescription = `The weather was ${WeatherConditions[roundSetup.weatherConditions]} overnight as forecast... There was no storm!`;
       }
     }
   }
