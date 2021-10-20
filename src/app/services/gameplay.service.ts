@@ -62,6 +62,7 @@ export class GameplayService {
     roundSetup.weatherConditions = WeatherConditions.perfect;
     roundSetup.goodWeatherMax = GAME_SETTINGS.goodWeatherMax;
     roundSetup.weatherAlert = false;
+    roundSetup.positiveWeatherAlert = true;
     roundSetup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[WeatherConditions.perfect]} today! A good day to start. There is only a ${GAME_SETTINGS.randomNumberMax - roundSetup.goodWeatherMax}% chance of a storm.`;
     roundSetup.marketAlert = false
     roundSetup.potPrice = GAME_SETTINGS.potPrice;
@@ -85,6 +86,7 @@ export class GameplayService {
     roundSetup.offshorePrice = GAME_SETTINGS.offshorePrice;
     roundSetup.marketAlert = false;
     roundSetup.weatherConditions = this.getRandomFromEnum(WeatherConditions);
+    roundSetup.positiveWeatherAlert = (roundSetup.weatherConditions === WeatherConditions.perfect);
     roundSetup.goodWeatherMax = (GAME_SETTINGS.goodWeatherMax - (roundSetup.weatherConditions * 10));
     roundSetup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[roundSetup.weatherConditions]} today. There is a ${GAME_SETTINGS.randomNumberMax - roundSetup.goodWeatherMax}% chance of a storm:`;
     roundSetup.weatherAlert = (roundSetup.goodWeatherMax < 60);
@@ -103,7 +105,7 @@ export class GameplayService {
       roundSetup.catchChanceMax = 50;
       roundSetup.marketConditionsDescription = "Avast! There be a lobster shortage today! All prices be doubled, but beware, lobsters be harder to catch.";
     } else if (roundSetup.marketConditions === MarketConditions.lobsterSurplus) {
-      roundSetup.marketAlert = true;
+      roundSetup.positiveMarketAlert = true;
       roundSetup.potPrice /= 2;
       roundSetup.onshorePrice /= 2;
       roundSetup.offshorePrice /= 2;
@@ -117,7 +119,7 @@ export class GameplayService {
       roundSetup.offshorePrice /= 2;
       roundSetup.marketConditionsDescription = "Blimey! There be a drop in demand for lobster! Everything is half price... including the lobsters.";
     } else if (roundSetup.marketConditions === MarketConditions.highDemand) {
-      roundSetup.marketAlert = true;
+      roundSetup.positiveMarketAlert = true;
       roundSetup.potPrice *= 2;
       roundSetup.onshorePrice *= 2;
       roundSetup.offshorePrice *= 2;
@@ -140,7 +142,7 @@ export class GameplayService {
 
   buyPot(roundSetup: RoundSetup) {
     if (this.progressService.netProfit < roundSetup.potPrice) {
-      alert("You don't have enough 💰");
+      alert("Ye don't have enough 💰");
       return;
     }
     this.progressService.potsBought += 1;
@@ -205,8 +207,10 @@ export class GameplayService {
     if (this.progressService.potsOnshore > 0 || this.progressService.potsOffshore > 0) {
       if (roundResults.lobstersCaught > 0) {
         roundResults.title = "Success!";
+        roundResults.success = true;
       } else {
         roundResults.title = "Unlucky!";
+        roundResults.success = false;
       }
     } else {
       roundResults.title = "Ye sat this one out! Ye landlubber!!"
@@ -231,6 +235,7 @@ export class GameplayService {
       roundResults.weatherConditions = WeatherConditions.evil;
       if (this.progressService.potsOffshore > 0) {
         roundResults.weatherConditionsDescription = `Alas! There was a storm in the night. All yer offshore pots were lost to Davey Jones!`;
+        roundResults.alert = true;
       } else {
         roundResults.weatherConditionsDescription = "There was a storm in the night! lucky ye didn't put any pots out there!"
       }
@@ -240,7 +245,7 @@ export class GameplayService {
         roundResults.weatherConditionsDescription = `Despite the forecast, there was no storm in the night!`;
       } else {
         roundResults.weatherConditions = roundSetup.weatherConditions;
-        roundResults.weatherConditionsDescription = `The weather was ${WeatherConditions[roundSetup.weatherConditions]} as forecast!`;
+        roundResults.weatherConditionsDescription = `The weather was ${WeatherConditions[roundSetup.weatherConditions]} overnight as forecast... But no storm!`;
       }
     }
   }

@@ -52,8 +52,12 @@ h1 {
         }
     }
     .alert {
-        font-weight: bold;
         background-color: rgba(250, 128, 114, 0.5);
+        border-radius: 5px;
+    }
+    .positiveAlert {
+        background-color: rgba(144, 238, 144, 0.6);
+        border-radius: 5px;
     }
     .buttons {
         display: flex;

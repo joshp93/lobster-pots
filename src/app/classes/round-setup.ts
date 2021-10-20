@@ -7,9 +7,11 @@ export class RoundSetup {
     weatherConditions: WeatherConditions = WeatherConditions.normal;
     weatherConditionsDescription: string = "";
     weatherAlert: boolean = false;
+    positiveWeatherAlert: boolean = false;
     marketConditions: MarketConditions = MarketConditions.normal;
     marketConditionsDescription: string = "";
     marketAlert: boolean = false;
+    positiveMarketAlert: boolean = false;
     potPrice: number = 0;
     onshorePrice: number = 0;
     offshorePrice: number = 0;

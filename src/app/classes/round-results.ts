@@ -7,4 +7,6 @@ export class RoundResults {
     lobstersCaught: number = 0;
     potsLost: number = 0;
     income: number = 0;
+    alert: boolean = false;
+    success: boolean = false;
 }
