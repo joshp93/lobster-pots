@@ -61,8 +61,17 @@ export class ProgressService {
   get income(): number {
     return parseInt(sessionStorage.getItem('income') || '0');
   }
-  set income(value: number) {
-    sessionStorage.setItem('income', value.toString());
+  addToIncome(value: number) {
+    sessionStorage.setItem('income', (this.income + value).toString());
+    if (value > 0) {
+      this.turnover += value;
+    }
+  }
+  get turnover(): number {
+    return parseInt(sessionStorage.getItem('turnover') || '0');
+  }
+  set turnover(value: number) {
+    sessionStorage.setItem('turnover', value.toString());
   }
 
   get potSpendings(): number {
@@ -70,14 +79,23 @@ export class ProgressService {
   }
   set potSpendings(value: number) {
     sessionStorage.setItem('potSpendings', value.toString());
+    if (value < 0) {
+      this.turnover += (value * -1);
+    }
   }
 
   get netProfit(): number {
     return (this.openingCash + this.income) - this.potSpendings
   }
 
-  get availablePots(): number {
-    return (this.openingPots + this.potsBought) - (this.potsOnshore + this.potsOffshore);
+  get totalAvailablePots(): number {
+    return this.totalPots - (this.potsOnshore + this.potsOffshore);
+  }
+  get onshoreAvailablePots(): number {
+    return (this.totalPots - this.potsOffshore);
+  }
+  get offshoreAvailablePots(): number {
+    return (this.totalPots - this.potsOnshore);
   }
 
   get totalPots(): number {

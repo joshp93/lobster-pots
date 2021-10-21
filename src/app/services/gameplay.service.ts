@@ -35,7 +35,7 @@ export class GameplayService {
       return this.setRoundSetup(setup);
     }
     if (setup.rentDue) {
-      this.progressService.income -= this.progressService.rentValue;
+      this.progressService.addToIncome(-this.progressService.rentValue);
     }
     this.setMarketConditions(setup);
     return this.setRoundSetup(setup);
@@ -48,7 +48,7 @@ export class GameplayService {
         return true;
       }
     }
-    if ((this.progressService.netProfit < setup.potPrice) && this.progressService.availablePots < 1) {
+    if ((this.progressService.netProfit < setup.potPrice) && this.progressService.totalPots < 1) {
       this.progressService.gameOverReason = "Ye have no more pots and ye can't afford to buy them!";
       return true;
     }
@@ -162,7 +162,7 @@ export class GameplayService {
   }
 
   sellPot(setup: Setup) {
-    if (this.progressService.availablePots < 1) {
+    if (this.progressService.totalAvailablePots < 1) {
       return;
     }
     this.progressService.potsBought -= 1;
@@ -173,8 +173,8 @@ export class GameplayService {
     const count = parseInt(noOfPots) || 0;
     if (count < 1) {
       this.progressService.potsOnshore = 0;
-    } else if (count > this.progressService.availablePots) {
-      this.progressService.potsOnshore = this.progressService.availablePots;
+    } else if (count > this.progressService.onshoreAvailablePots) {
+      this.progressService.potsOnshore = this.progressService.onshoreAvailablePots;
     } else {
       this.progressService.potsOnshore = count;
     }
@@ -185,8 +185,8 @@ export class GameplayService {
     const count = parseInt(noOfPots) || 0;
     if (count < 1) {
       this.progressService.potsOffshore = 0;
-    } else if (count > this.progressService.availablePots) {
-      this.progressService.potsOffshore = this.progressService.availablePots;
+    } else if (count > this.progressService.offshoreAvailablePots) {
+      this.progressService.potsOffshore = this.progressService.offshoreAvailablePots;
     } else {
       this.progressService.potsOffshore = count;
     }
@@ -233,7 +233,7 @@ export class GameplayService {
   private catchLobster(results: Results, price: number) {
     this.progressService.totalLobstersCaught += 1;
     results.lobstersCaught += 1;
-    this.progressService.income += price;
+    this.progressService.addToIncome(price);
     results.income += price;
   }
 

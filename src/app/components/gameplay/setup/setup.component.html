@@ -24,7 +24,7 @@
         <td><img src="assets/lobster.png" alt="Lobster image"> Onshore</td>
         <td class="price">{{ setup.onshorePrice }}💰</td>
         <td class="actions">
-            <input type="number" [(ngModel)]="potsOnshore"
+            <input type="number" min="0" [max]="progressService.onshoreAvailablePots" [(ngModel)]="potsOnshore"
                 (blur)="potsOnshore = gameplayService.placeOnshore(potsOnshore)">
         </td>
     </tr>
@@ -32,7 +32,7 @@
         <td><img src="assets/lobster.png" alt="Lobster image"> Offshore</td>
         <td class="price">{{ setup.offshorePrice }}💰</td>
         <td class="actions">
-            <input type="number" [(ngModel)]="potsOffshore"
+            <input type="number" min="0" [max]="progressService.offshoreAvailablePots" [(ngModel)]="potsOffshore"
                 (blur)="potsOffshore = gameplayService.placeOffshore(potsOffshore)">
         </td>
     </tr>

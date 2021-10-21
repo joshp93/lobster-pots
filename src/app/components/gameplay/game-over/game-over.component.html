@@ -8,14 +8,15 @@
     Avast me hearty! Ye were not so bad out there!
 </p>
 <p
-    *ngIf="progressService.day * progressService.totalLobstersCaught < 1000 && progressService.day * progressService.totalLobstersCaught > 499">
+    *ngIf="progressService.day * progressService.totalLobstersCaught < 10000 && progressService.day * progressService.totalLobstersCaught > 499">
     Blimey matey, ye be getting pretty good at this!
 </p>
-<p *ngIf="progressService.day * progressService.totalLobstersCaught > 999">
+<p *ngIf="progressService.day * progressService.totalLobstersCaught > 9999">
     Blow me down! yer a bona fide lobster lover! Good job matey!
 </p>
 <p>Ye caught {{ progressService.totalLobstersCaught }}<img src="assets/lobster.png" alt="Lobster image"> and
-    survived for a total of {{ progressService.day }} days.</p>
+    survived for a total of {{ progressService.day }} days.
+    <br>Ye were paying {{ progressService.rentValue }}💰 in rent and ye turned over {{ progressService.turnover }}💰</p>
 <div class="buttons">
     <button type="submit" (click)="startOver()"><img src="assets/lobster.png" alt="Lobster image"> Start
         Over!</button>
