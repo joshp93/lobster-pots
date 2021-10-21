@@ -1,90 +1,17 @@
 <div class="content">
     <ng-container *ngIf="progressService.gameOver;else gameTemplate">
-        <h1>Game Over!</h1>
-        <p>{{ progressService.gameOverReason }}</p>
-        <p *ngIf="progressService.day * progressService.totalLobstersCaught < 100">
-            Looks like ye need more practice matey!
-        </p>
-        <p
-            *ngIf="progressService.day * progressService.totalLobstersCaught < 500 && progressService.day * progressService.totalLobstersCaught > 99">
-            Avast me hearty! Ye were not so bad out there!
-        </p>
-        <p
-            *ngIf="progressService.day * progressService.totalLobstersCaught < 1000 && progressService.day * progressService.totalLobstersCaught > 499">
-            Blimey matey, ye be getting pretty good at this!
-        </p>
-        <p *ngIf="progressService.day * progressService.totalLobstersCaught > 999">
-            Blow me down! yer a bona fide lobster lover! Good job matey!
-        </p>
-        <p>Ye caught {{ progressService.totalLobstersCaught }}<img src="assets/lobster.png" alt="Lobster image"> and survived for a total of {{ progressService.day }} days.</p>
-        <div class="buttons">
-            <button type="submit" (click)="startOver()"><img src="assets/lobster.png" alt="Lobster image"> Start Over!</button>
-        </div>
+        <app-game-over (startOverEvent)="startOver()"></app-game-over>
     </ng-container>
     <ng-template #gameTemplate>
-        <ng-container *ngIf="!roundResults.title;else roundResultTemplate">
-            <h1>{{ roundSetup.title }}</h1>
-            <p>{{ roundSetup.info }}</p>
-            <p [class.alert]="roundSetup.weatherAlert" [class.positiveAlert]="roundSetup.positiveWeatherAlert">{{
-                roundSetup.weatherConditionsDescription }}</p>
-            <p [class.alert]="roundSetup.marketAlert" [class.positiveAlert]="roundSetup.positiveMarketAlert">{{
-                roundSetup.marketConditionsDescription }}</p>
-            <p [class.alert]="roundSetup.rentDue" *ngIf="roundSetup.rentDue && !roundSetup.rentDueTomorrow">{{
-                roundSetup.rentValue }}💰 in rent has been taken from ye!</p>
-            <p *ngIf="roundSetup.rentDueTomorrow && !roundSetup.rentWarning">
-                {{ roundSetup.rentValue }}💰 in rent will be taken from ye tomorrow!</p>
-            <p [class.alert]="roundSetup.rentDueTomorrow" *ngIf="roundSetup.rentDueTomorrow && roundSetup.rentWarning">
-                {{ roundSetup.rentValue }}💰 in rent will be taken from ye tomorrow! Ye don't have enough money at the
-                moment! Get lobstering!</p>
-            <table>
-                <tr>
-                    <td>🏺</td>
-                    <td class="price">{{ roundSetup.potPrice }}💰</td>
-                    <td class="actions">
-                        <button class="add" type="submit" (click)="buyPot()">Buy</button>
-                        <button class="remove" type="submit" (click)="gameplayService.sellPot(roundSetup)">Sell</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="assets/lobster.png" alt="Lobster image"> Price onshore</td>
-                    <td class="price">{{ roundSetup.onshorePrice }}💰</td>
-                    <td class="actions"><button class="add" type="submit"
-                            (click)="gameplayService.placeOnshore()">Place</button>
-                        <button class="remove" type="submit"
-                            (click)="gameplayService.placeOnshore(true)">Remove</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="assets/lobster.png" alt="Lobster image"> Price offshore</td>
-                    <td class="price">{{ roundSetup.offshorePrice }}💰</td>
-                    <td class="actions"><button class="add" type="submit"
-                            (click)="gameplayService.placeOffshore()">Place</button>
-                        <button class="remove" type="submit"
-                            (click)="gameplayService.placeOffshore(true)">Remove</button>
-                    </td>
-                </tr>
-            </table>
+        <ng-container *ngIf="!results.title;else roundResultTemplate">
+            <app-setup [setup]="setup" [potsOnshore]="potsOnshore" [potsOffshore]="potsOffshore"></app-setup>
             <div class="buttons">
                 <button type="submit" (click)="goLobstering()"><img src="assets/lobster.png" alt="Lobster image"> Get
                     Lobstering!</button>
             </div>
         </ng-container>
         <ng-template #roundResultTemplate>
-            <h1>{{ roundResults.title }}</h1>
-            <br>
-            <p [class.alert]="roundResults.alert">{{ roundResults.weatherConditionsDescription }}</p>
-            <p [class.alert]="roundResults.alert" *ngIf="roundResults.potsLost">Ye lost {{ roundResults.potsLost }}🏺 to
-                the storm!</p>
-            <p [class.positiveAlert]="roundResults.success" *ngIf="roundResults.lobstersCaught > 0;else failTemplate">Ye
-                caught {{ roundResults.lobstersCaught }}<img src="assets/lobster.png" alt="Lobster image">
-                and made {{ roundResults.income }}💰</p>
-            <ng-template #failTemplate>
-                <p [class.alert]="!roundResults.success">Ye didn't catch any <img src="assets/lobster.png" alt="Lobster"> or make any 💰. Better luck next
-                    time!</p>
-            </ng-template>
-            <div class="buttons">
-                <button type="submit" (click)="nextDay()">☀ Go To Next Day...</button>
-            </div>
+            <app-results [results]="results" (nextDayEvent)="nextDay()"></app-results>
         </ng-template>
     </ng-template>
 </div>

@@ -1,10 +1,14 @@
-<table tabindex="0">
-    <tr>
+<table>
+    <tr class="row1">
         <td title="Net Income" aria-label="Net Income">💰 {{ progressService.netProfit }}</td>
+        <td title="Total Lobsters Caught" aria-label="Total Lobsters Caught"><img src="assets/lobster.png" alt="Lobster image"> {{ progressService.totalLobstersCaught }}</td>
+        <td title="Day" aria-label="Day">☀ {{ progressService.day }}</td>
+        <td title="Rent to Pay">🏦 {{ progressService.rentValue }}</td>
+    </tr>
+    <tr>
         <td title="Total Pots" aria-label="Total Pots">🏺 {{ progressService.availablePots }}</td>
         <td title="Pots Onshore" aria-label="Pots Onshore">🏖 {{ progressService.potsOnshore }}</td>
         <td title="Pots Offshore" aria-label="Pots Offshore">🌊 {{ progressService.potsOffshore }}</td>
-        <td title="Total Lobsters Caught" aria-label="Total Lobsters Caught"><img src="assets/lobster.png" alt="Lobster image"> {{ progressService.totalLobstersCaught }}</td>
-        <td title="Day" aria-label="Day">☀ {{ progressService.day }}</td>
+        <button class="howToPlayButton" (click)="toggleShowHowToPlay()">?</button>
     </tr>
 </table>

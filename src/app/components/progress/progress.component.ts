@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProgressService } from 'src/app/services/progress.service';
 
 @Component({
@@ -7,10 +7,15 @@ import { ProgressService } from 'src/app/services/progress.service';
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit {
+  @Output() showHowToPlayEvent = new EventEmitter<void>();
 
   constructor(public progressService: ProgressService) { }
 
   ngOnInit(): void {
+  }
+
+  toggleShowHowToPlay() {
+    this.showHowToPlayEvent.emit();
   }
 
 }

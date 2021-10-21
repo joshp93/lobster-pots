@@ -1,0 +1,39 @@
+<h1>{{ setup.title }}</h1>
+<p>{{ setup.info }}</p>
+<p [class.alert]="setup.weatherAlert" [class.positiveAlert]="setup.positiveWeatherAlert">{{
+    setup.weatherConditionsDescription }}</p>
+<p [class.alert]="setup.marketAlert" [class.positiveAlert]="setup.positiveMarketAlert">{{
+    setup.marketConditionsDescription }}</p>
+<p [class.alert]="setup.rentDue" *ngIf="setup.rentDue && !setup.rentDueTomorrow">{{
+    setup.rentValue }}💰 in rent has been taken from ye!</p>
+<p *ngIf="setup.rentDueTomorrow && !setup.rentWarning">
+    {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow!</p>
+<p [class.alert]="setup.rentDueTomorrow" *ngIf="setup.rentDueTomorrow && setup.rentWarning">
+    {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow! Ye don't have enough money at the
+    moment! Get lobstering!</p>
+<table>
+    <tr>
+        <td>🏺</td>
+        <td class="price">{{ setup.potPrice }}💰</td>
+        <td class="actions">
+            <button class="add" type="submit" (click)="buyPot()">Buy</button>
+            <button class="remove" type="submit" (click)="gameplayService.sellPot(setup)">Sell</button>
+        </td>
+    </tr>
+    <tr>
+        <td><img src="assets/lobster.png" alt="Lobster image"> Onshore</td>
+        <td class="price">{{ setup.onshorePrice }}💰</td>
+        <td class="actions">
+            <input type="number" [(ngModel)]="potsOnshore"
+                (blur)="potsOnshore = gameplayService.placeOnshore(potsOnshore)">
+        </td>
+    </tr>
+    <tr>
+        <td><img src="assets/lobster.png" alt="Lobster image"> Offshore</td>
+        <td class="price">{{ setup.offshorePrice }}💰</td>
+        <td class="actions">
+            <input type="number" [(ngModel)]="potsOffshore"
+                (blur)="potsOffshore = gameplayService.placeOffshore(potsOffshore)">
+        </td>
+    </tr>
+</table>

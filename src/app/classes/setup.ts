@@ -1,7 +1,7 @@
 import { MarketConditions } from "../enums/market-conditions";
 import { WeatherConditions } from "../enums/weather-conditions";
 
-export class RoundSetup {
+export class Setup {
     title: string = "";
     info: string = "";
     weatherConditions: WeatherConditions = WeatherConditions.normal;

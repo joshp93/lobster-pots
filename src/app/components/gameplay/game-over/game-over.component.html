@@ -1,0 +1,22 @@
+<h1>Game Over!</h1>
+<p>{{ progressService.gameOverReason }}</p>
+<p *ngIf="progressService.day * progressService.totalLobstersCaught < 100">
+    Looks like ye need more practice matey!
+</p>
+<p
+    *ngIf="progressService.day * progressService.totalLobstersCaught < 500 && progressService.day * progressService.totalLobstersCaught > 99">
+    Avast me hearty! Ye were not so bad out there!
+</p>
+<p
+    *ngIf="progressService.day * progressService.totalLobstersCaught < 1000 && progressService.day * progressService.totalLobstersCaught > 499">
+    Blimey matey, ye be getting pretty good at this!
+</p>
+<p *ngIf="progressService.day * progressService.totalLobstersCaught > 999">
+    Blow me down! yer a bona fide lobster lover! Good job matey!
+</p>
+<p>Ye caught {{ progressService.totalLobstersCaught }}<img src="assets/lobster.png" alt="Lobster image"> and
+    survived for a total of {{ progressService.day }} days.</p>
+<div class="buttons">
+    <button type="submit" (click)="startOver()"><img src="assets/lobster.png" alt="Lobster image"> Start
+        Over!</button>
+</div>

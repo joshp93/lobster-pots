@@ -1,11 +1,8 @@
-<button class="howToPlayButton" (click)="showHowToPlay = !showHowToPlay;">
-    How to Play
-</button>
 <div class="howToPlay" [class.hidden]="!showHowToPlay">
     <div class="close">
-        <button (click)="showHowToPlay = !showHowToPlay;">X</button>
+        <button (click)="toggleShowHowToPlay()">X</button>
     </div>
-    <div class="content">
+    <div class="rules">
         <h2>How to Play</h2>
         <p>Welcome to Lobster Pots. A game which tests your seaworthiness and entrepreneurial flare!</p>
         <p>You have recently opened for business as a lobster catcher.

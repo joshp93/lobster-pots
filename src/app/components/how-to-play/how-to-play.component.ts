@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GAME_SETTINGS } from "../../settings/game-settings";
 
 @Component({
@@ -7,12 +7,18 @@ import { GAME_SETTINGS } from "../../settings/game-settings";
   styleUrls: ['./how-to-play.component.scss']
 })
 export class HowToPlayComponent implements OnInit {
-  showHowToPlay: boolean = false;
+  @Input() showHowToPlay: boolean = false;
+  @Output() showHowToPlayEvent = new EventEmitter<void>();
+
   gameSettings = GAME_SETTINGS;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleShowHowToPlay() {
+    this.showHowToPlayEvent.emit();
   }
 
 }

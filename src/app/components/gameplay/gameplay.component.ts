@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RoundResults } from 'src/app/classes/round-results';
-import { RoundSetup } from 'src/app/classes/round-setup';
+import { Results } from 'src/app/classes/results';
+import { Setup } from 'src/app/classes/setup';
 import { GameplayService } from 'src/app/services/gameplay.service';
 import { ProgressService } from 'src/app/services/progress.service';
 
@@ -10,14 +10,16 @@ import { ProgressService } from 'src/app/services/progress.service';
   styleUrls: ['./gameplay.component.scss']
 })
 export class GameplayComponent implements OnInit {
-  roundSetup: RoundSetup;
-  roundResults: RoundResults = new RoundResults();
+  setup: Setup;
+  results: Results = new Results();
+  potsOnshore: string = "0";
+  potsOffshore: string = "0";
 
   constructor(public gameplayService: GameplayService, public progressService: ProgressService) {
-    if (progressService.roundSetup === null) {
-      this.roundSetup = gameplayService.getRoundSetup();
+    if (progressService.setup === null) {
+      this.setup = gameplayService.getRoundSetup();
     } else {
-      this.roundSetup = progressService.roundSetup;
+      this.setup = progressService.setup;
     }
   }
 
@@ -25,24 +27,22 @@ export class GameplayComponent implements OnInit {
     
   }
 
-  buyPot() {
-    this.roundSetup = this.gameplayService.buyPot(this.roundSetup);
-  }
-
   goLobstering() {
-    this.roundResults = this.gameplayService.goLobstering(this.roundSetup);
+    this.results = this.gameplayService.goLobstering(this.setup);
   }
 
   nextDay() {
+    this.potsOnshore = "0";
+    this.potsOffshore = "0";
     this.progressService.day += 1;
-    this.roundResults = new RoundResults();
-    this.roundSetup = this.gameplayService.getRoundSetup();
+    this.results = new Results();
+    this.setup = this.gameplayService.getRoundSetup();
   }
 
   startOver() {
-    this.roundResults = new RoundResults();
-    this.roundSetup = new RoundSetup();
+    this.results = new Results();
+    this.setup = new Setup();
     this.progressService.newGame();
-    this.roundSetup = this.gameplayService.getRoundSetup();
+    this.setup = this.gameplayService.getRoundSetup();
   }
 }

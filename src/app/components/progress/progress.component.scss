@@ -1,18 +1,35 @@
 table {
-    background-color: lemonchiffon;
+    background-color: lightgreen;
     box-shadow: rgb(153, 153, 153) 0px 5px 15px;
     font-size: 1.5rem;
     border-radius: 0px 0px 5px 0px;
+    text-align: center;
     td {
         border-right: 1px solid;
         padding: 0.5rem;
     }
-    td:last-of-type {
-        border-right: none;
-    }
     img {
         height: 2rem;
         width: 2rem;
+    }
+    .row1 {
+        td:last-of-type {
+            border-right: none;
+        }
+    }
+    .howToPlayButton {
+        background-color: transparent;
+        color: salmon;
+        font-size: 1.5rem;
+        padding: 1rem;
+        border: none;
+        border-radius: 0px 5px 5px 0px;
+        transition: outline 0.2s;
+        cursor: pointer;
+    }
+    .howToPlayButton:hover,
+    .howToPlayButton:focus {
+        text-decoration: underline;
     }
 }
 table:focus {

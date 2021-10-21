@@ -1,7 +1,7 @@
 import { CoolSessionStorage } from '@angular-cool/storage';
 import { Injectable } from '@angular/core';
-import { RoundResults } from '../classes/round-results';
-import { RoundSetup } from '../classes/round-setup';
+import { Results } from '../classes/results';
+import { Setup } from '../classes/setup';
 import { GAME_SETTINGS } from '../settings/game-settings';
 
 @Injectable({
@@ -91,11 +91,11 @@ export class ProgressService {
     sessionStorage.setItem('day', value.toString());
   }
 
-  get roundSetup(): RoundSetup | null {
-    return this.coolSessionStorage.getObject('roundSetup');
+  get setup(): Setup | null {
+    return this.coolSessionStorage.getObject('setup');
   }
-  set roundSetup(value: RoundSetup | null) {
-    this.coolSessionStorage.setObject('roundSetup', value);
+  set setup(value: Setup | null) {
+    this.coolSessionStorage.setObject('setup', value);
   }
   get totalLobstersCaught(): number {
     return parseInt(sessionStorage.getItem('totalLobstersCaught') || '0');
@@ -104,11 +104,11 @@ export class ProgressService {
     sessionStorage.setItem('totalLobstersCaught', value.toString());
   }
 
-  get roundResults(): RoundResults | null {
-    return this.coolSessionStorage.getObject('roundResults');
+  get results(): Results | null {
+    return this.coolSessionStorage.getObject('results');
   }
-  set roundResults(value: RoundResults | null) {
-    this.coolSessionStorage.setObject('roundResults', value);
+  set results(value: Results | null) {
+    this.coolSessionStorage.setObject('results', value);
   }
 
   get gameOver(): boolean {

@@ -1,8 +1,8 @@
 import { WeatherConditions } from '../enums/weather-conditions';
-import { RoundSetup } from './round-setup';
+import { Setup } from './setup';
 
-describe('RoundSetup', () => {
+describe('Setup', () => {
   it('should create an instance', () => {
-    expect(new RoundSetup()).toBeTruthy();
+    expect(new Setup()).toBeTruthy();
   });
 });

@@ -1,6 +1,6 @@
 import { WeatherConditions } from "../enums/weather-conditions";
 
-export class RoundResults {
+export class Results {
     title: string = "";
     weatherConditions: WeatherConditions = WeatherConditions.normal;
     weatherConditionsDescription: string = "";

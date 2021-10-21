@@ -21,3 +21,94 @@ img {
     height: 16px;
     width: 16px;
 }
+
+.content {
+    min-height: 100vh;
+    max-height: fit-content;
+    margin: 0px 20% 0px 20%;
+    padding: 1rem;
+    background-color: floralwhite;
+    box-shadow: rgb(153, 153, 153) 0px 5px 15px;
+    font-size: 1.5rem;
+    animation: font-weight, background-color 0.2s;
+    h1 {
+        text-align: center;
+        @media only screen and (max-width: 1142px) {
+            margin-top: 18vh;
+        }
+    }
+    img {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+    button {
+        border: none;
+        margin-right: 2px;
+        font-family: inherit;
+        font-size: 1rem;
+        padding: 0.5rem;
+        transition: outline 0.2s;
+        border-radius: 5px;
+        background-color: rgba(46, 241, 255, 0.7);
+    }
+    .add {
+        background-color: lightgreen;
+    }
+    .remove {
+        background-color: salmon;
+    }
+    button:focus,
+    button:hover {
+        outline: 2px solid;
+    }
+    table {
+        width: 100%;
+        td {
+            border-bottom: 2px solid rgba(250, 128, 114, 0.5);
+            padding: 1rem 0.2rem 0.6rem 0.2rem;
+        }
+        .price {
+            min-width: 36px;
+            text-align: right;
+        }
+        .actions {
+            min-width: 75px;
+            display: flex;
+            flex-direction: row;
+            :last-child {
+                margin-left: auto;
+            }
+            button {
+                width: 40%;
+            }
+            input {
+                width: 100%;
+                background-color: rgba(245, 245, 245, 0.5);
+                border: none;
+                border-bottom: 1px solid lightgreen;
+                text-align: right;
+                font-size: 1.5rem;
+                font-family: inherit;
+            }
+        }
+    }
+    .alert {
+        background-color: rgba(250, 128, 114, 0.5);
+        border-radius: 5px;
+    }
+    .positiveAlert {
+        background-color: rgba(144, 238, 144, 0.6);
+        border-radius: 5px;
+    }
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        button {
+            background-color: lightgreen;
+        }
+    }
+    @media only screen and (max-width: 750px) {
+        margin: 0%;
+    }
+}

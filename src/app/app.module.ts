@@ -6,17 +6,25 @@ import { ProgressComponent } from './components/progress/progress.component';
 import { GameplayComponent } from './components/gameplay/gameplay.component';
 import { CoolStorageModule } from '@angular-cool/storage';
 import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
+import { FormsModule } from '@angular/forms';
+import { GameOverComponent } from './components/gameplay/game-over/game-over.component';
+import { ResultsComponent } from './components/gameplay/results/results.component';
+import { SetupComponent } from './components/gameplay/setup/setup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProgressComponent,
     GameplayComponent,
-    HowToPlayComponent
+    HowToPlayComponent,
+    GameOverComponent,
+    ResultsComponent,
+    SetupComponent
   ],
   imports: [
     BrowserModule,
-    CoolStorageModule.forRoot()
+    CoolStorageModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
