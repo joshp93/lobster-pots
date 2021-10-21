@@ -12,8 +12,8 @@ import { ProgressService } from 'src/app/services/progress.service';
 export class GameplayComponent implements OnInit {
   setup: Setup;
   results: Results = new Results();
-  potsOnshore: string = "0";
-  potsOffshore: string = "0";
+  potsOnshore: string = "";
+  potsOffshore: string = "";
 
   constructor(public gameplayService: GameplayService, public progressService: ProgressService) {
     if (progressService.setup === null) {
@@ -32,8 +32,8 @@ export class GameplayComponent implements OnInit {
   }
 
   nextDay() {
-    this.potsOnshore = "0";
-    this.potsOffshore = "0";
+    this.potsOnshore = "";
+    this.potsOffshore = "";
     this.progressService.day += 1;
     this.results = new Results();
     this.setup = this.gameplayService.getRoundSetup();
