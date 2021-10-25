@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Setup } from 'src/app/classes/setup';
 import { GameplayService } from 'src/app/services/gameplay.service';
 import { ProgressService } from 'src/app/services/progress.service';
@@ -22,4 +22,14 @@ export class SetupComponent implements OnInit {
     this.setup = this.gameplayService.buyPot(this.setup);
   }
 
+  moveNext(onshore: HTMLInputElement, offshore: HTMLInputElement) {
+    if (document.activeElement === onshore) {
+      offshore.focus();
+    } else {
+      const button = document.getElementById("lobster");
+      if (button) {
+        button.focus();
+      }
+    }
+  }
 }

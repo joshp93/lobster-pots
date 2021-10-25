@@ -25,7 +25,7 @@
         <td class="price">{{ setup.onshorePrice }}💰</td>
         <td class="actions">
             <input type="number" min="0" [max]="progressService.onshoreAvailablePots" [(ngModel)]="potsOnshore"
-                (blur)="potsOnshore = gameplayService.placeOnshore(potsOnshore)">
+                (blur)="potsOnshore = gameplayService.placeOnshore(potsOnshore)" (keyup.enter)="moveNext(onshore, offshore)" #onshore>
         </td>
     </tr>
     <tr>
@@ -33,7 +33,7 @@
         <td class="price">{{ setup.offshorePrice }}💰</td>
         <td class="actions">
             <input type="number" min="0" [max]="progressService.offshoreAvailablePots" [(ngModel)]="potsOffshore"
-                (blur)="potsOffshore = gameplayService.placeOffshore(potsOffshore)">
+                (blur)="potsOffshore = gameplayService.placeOffshore(potsOffshore)" (keyup.enter)="moveNext(onshore, offshore)" #offshore>
         </td>
     </tr>
 </table>

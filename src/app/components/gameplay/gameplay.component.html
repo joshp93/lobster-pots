@@ -6,7 +6,7 @@
         <ng-container *ngIf="!results.title;else roundResultTemplate">
             <app-setup [setup]="setup" [potsOnshore]="potsOnshore" [potsOffshore]="potsOffshore"></app-setup>
             <div class="buttons">
-                <button type="submit" (click)="goLobstering()"><img src="assets/lobster.png" alt="Lobster image"> Get
+                <button id="lobster" type="submit" (click)="goLobstering()"><img src="assets/lobster.png" alt="Lobster image"> Get
                     Lobstering!</button>
             </div>
         </ng-container>
