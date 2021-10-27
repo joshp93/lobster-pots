@@ -20,7 +20,7 @@
                 of onshore ones!</li>
             <li><strong>Buy or sell pots:</strong> In addition to placing lobster pots, you can also choose to buy or
                 sell them. The more lobster pots you have, the more pieces of eight you can make! Selling pots gives
-                guaranteed income for that day. Pots are always sold for half the purchase value.</li>
+                guaranteed income for that day. Pots are always sold for half the current purchase value.</li>
         </ul>
         <p>Every day the weather forecast will predict the chance of a storm. If there is a storm in the night, all
             offshore pots are lost to the sea!</p>
@@ -35,5 +35,8 @@
             gameSettings.rentIncreaseInterval }}! The game will also end if you don't have
             any pots left and you can't afford to buy any.</p>
         <p><strong>Get lobstering me hearty!</strong></p>
+        <p class="end">
+            <button *ngIf="!progressService.gameOver" (click)="endGame()">End Game Now</button>
+        </p>
     </div>
 </div>

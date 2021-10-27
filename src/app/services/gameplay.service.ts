@@ -30,7 +30,7 @@ export class GameplayService {
     setup.rentWarning = setup.rentDueTomorrow && (this.progressService.netProfit < this.progressService.rentValue);
     setup.rentValue = this.progressService.rentValue;
     this.setBasicRoundSetup(setup);
-    this.progressService.gameOver = this.checkGameOver(setup);
+    this.progressService.gameOver = this.setGameOver(setup);
     if (this.progressService.gameOver) {
       return this.setRoundSetup(setup);
     }
@@ -41,7 +41,7 @@ export class GameplayService {
     return this.setRoundSetup(setup);
   }
 
-  private checkGameOver(setup: Setup): boolean {
+  private setGameOver(setup: Setup): boolean {
     if (setup.rentDue) {
       if (this.progressService.netProfit < this.progressService.rentValue) {
         this.progressService.gameOverReason = "Ye couldn't pay the rent!";

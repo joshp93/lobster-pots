@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { ProgressComponent } from './components/progress/progress.component';
 import { GameplayComponent } from './components/gameplay/gameplay.component';
 import { CoolStorageModule } from '@angular-cool/storage';
-import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
+import { RulesComponent } from './components/rules/rules.component';
 import { FormsModule } from '@angular/forms';
 import { GameOverComponent } from './components/gameplay/game-over/game-over.component';
 import { ResultsComponent } from './components/gameplay/results/results.component';
@@ -16,7 +16,7 @@ import { SetupComponent } from './components/gameplay/setup/setup.component';
     AppComponent,
     ProgressComponent,
     GameplayComponent,
-    HowToPlayComponent,
+    RulesComponent,
     GameOverComponent,
     ResultsComponent,
     SetupComponent
