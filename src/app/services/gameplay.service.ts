@@ -69,7 +69,7 @@ export class GameplayService {
     setup.onshorePrice = GAME_SETTINGS.onshorePrice;
     setup.offshorePrice = GAME_SETTINGS.offshorePrice;
     setup.marketConditions = MarketConditions.normal;
-    setup.marketConditionsDescription = `The lobster market is ${MarketConditions[MarketConditions.normal]} today. Here are the prices:`;
+    setup.marketConditionsDescription = `The lobster market is ${MarketConditions[MarketConditions.normal]} today. Here are the prices.`;
     setup.catchChanceMax = GAME_SETTINGS.catchChanceMax;
 
     return this.setRoundSetup(setup);
