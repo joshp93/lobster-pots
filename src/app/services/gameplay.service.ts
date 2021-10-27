@@ -151,7 +151,18 @@ export class GameplayService {
       const newRentMultiplier = (this.progressService.totalPots / GAME_SETTINGS.rentIncreaseInterval) + 1;
       if (this.progressService.rentMultiplier < newRentMultiplier) {
         this.progressService.rentMultiplier = newRentMultiplier;
-        setup.info = `Avast matey! with the purchase of yer ${this.progressService.totalPots}th pot, ye had to move to a bigger premises. Yer rent is now ${this.progressService.rentValue}💰!`;
+        const totalPotsString = this.progressService.totalPots.toString();
+        let nth = 'th';
+        if (totalPotsString.length >= 3) {
+          if (totalPotsString.substring(totalPotsString.length - 2, totalPotsString.length) === '01') {
+            nth = 'st';
+          } else if (totalPotsString.substring(totalPotsString.length - 2, totalPotsString.length) === '02') {
+            nth = 'nd';
+          } else if (totalPotsString.substring(totalPotsString.length - 2, totalPotsString.length) === '03') {
+            nth = 'rd';
+          }
+        }
+        setup.info = `Avast matey! with the purchase of yer ${this.progressService.totalPots}${nth} pot, ye had to move to a bigger premises. Yer rent is now ${this.progressService.rentValue}💰!`;
         if (setup.rentValue > 0 && setup.rentDueTomorrow && !setup.rentDue) {
           setup.rentValue = this.progressService.rentValue;
         }
