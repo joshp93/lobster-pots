@@ -88,7 +88,7 @@ export class GameplayService {
     setup.weatherConditions = this.getRandomFromEnum(WeatherConditions);
     setup.positiveWeatherAlert = (setup.weatherConditions === WeatherConditions.perfect);
     setup.goodWeatherMax = (GAME_SETTINGS.goodWeatherMax - (setup.weatherConditions * 10));
-    setup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[setup.weatherConditions]} today. There is a ${GAME_SETTINGS.randomNumberMax - setup.goodWeatherMax}% chance of a storm:`;
+    setup.weatherConditionsDescription = `The weather forecast looks ${WeatherConditions[setup.weatherConditions]} today. There is a ${GAME_SETTINGS.randomNumberMax - setup.goodWeatherMax}% chance of a storm.`;
     setup.weatherAlert = (setup.goodWeatherMax < 60);
     setup.marketConditions = this.getRandomFromEnum(MarketConditions);
     setup.marketConditionsDescription = `The lobster market is ${MarketConditions[MarketConditions.normal]} today.`;
@@ -125,7 +125,7 @@ export class GameplayService {
       setup.offshorePrice *= 2;
       setup.marketConditionsDescription = "Yaar! There be high demand for lobster! All prices be doubled.";
     }
-    setup.marketConditionsDescription += ` There be reports that lobsters are getting caught about ${setup.catchChanceMax}% of the time:`
+    setup.marketConditionsDescription += ` There be reports that lobsters are getting caught about ${setup.catchChanceMax}% of the time.`
   }
 
   private getRandomFromEnum(enumName: any): number {
