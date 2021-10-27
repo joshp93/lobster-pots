@@ -16,7 +16,9 @@
 </p>
 <p>Ye caught {{ progressService.totalLobstersCaught }}<img src="assets/lobster.png" alt="Lobster image"> and
     survived for a total of {{ progressService.day }} days.
-    <br>Ye were paying {{ progressService.rentValue }}💰 in rent and ye turned over {{ progressService.turnover }}💰</p>
+    <br>Ye were paying {{ progressService.rentValue }}💰 in rent and ye turned over {{ progressService.turnover }}💰
+    <br>Ye were {{ (progressService.totalLobstersCaught / progressService.turnover) * 100}} % efficient
+</p>
 <div class="buttons">
     <button type="submit" (click)="startOver()"><img src="assets/lobster.png" alt="Lobster image"> Start
         Over!</button>
