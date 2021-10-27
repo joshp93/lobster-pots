@@ -151,8 +151,8 @@ export class GameplayService {
       const newRentMultiplier = (this.progressService.totalPots / GAME_SETTINGS.rentIncreaseInterval) + 1;
       if (this.progressService.rentMultiplier < newRentMultiplier) {
         this.progressService.rentMultiplier = newRentMultiplier;
-        setup.info = `Avast matey! with the purchase of your ${this.progressService.totalPots}th pot, you had to move to a bigger premises. Your rent is now ${this.progressService.rentValue}💰!`;
-        if (setup.rentValue > 0) {
+        setup.info = `Avast matey! with the purchase of yer ${this.progressService.totalPots}th pot, ye had to move to a bigger premises. Yer rent is now ${this.progressService.rentValue}💰!`;
+        if (setup.rentValue > 0 && setup.rentDueTomorrow && !setup.rentDue) {
           setup.rentValue = this.progressService.rentValue;
         }
         this.progressService.setup = setup;
