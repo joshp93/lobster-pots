@@ -2,6 +2,7 @@ import { CoolSessionStorage } from '@angular-cool/storage';
 import { Injectable } from '@angular/core';
 import { Results } from '../classes/results';
 import { Setup } from '../classes/setup';
+import { Difficulty } from '../enums/difficulty';
 import { GAME_SETTINGS } from '../settings/game-settings';
 
 @Injectable({
@@ -21,6 +22,7 @@ export class ProgressService {
     this.openingPots = GAME_SETTINGS.openingPots;
     this.day = GAME_SETTINGS.startDay;
     this.rentMultiplier = 1;
+    this.difficulty = Difficulty.normal;
   }
 
   get openingCash(): number {
@@ -151,7 +153,13 @@ export class ProgressService {
   }
 
   get rentValue(): number {
-    return GAME_SETTINGS.rentValue * this.rentMultiplier;
+    return (GAME_SETTINGS.rentValue + this.difficulty) * this.rentMultiplier;
   }
 
+  get difficulty(): Difficulty {
+    return parseInt(sessionStorage.getItem('difficulty') || '0');
+  }
+  set difficulty(value: Difficulty) {
+    sessionStorage.setItem('difficulty', value.toString())
+  }
 }

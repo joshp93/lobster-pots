@@ -35,6 +35,12 @@
             gameSettings.rentIncreaseInterval }}! The game will also end if you don't have
             any pots left and you can't afford to buy any.</p>
         <p><strong>Get lobstering me hearty!</strong></p>
+        <p class="difficulty">
+            <button (click)="easyDifficulty()">Easy</button>
+            <button (click)="normalDifficulty()">Normal</button>
+            <button (click)="hardDifficulty()">Hard</button>
+            <button (click)="evilDifficulty()">Evil</button>
+        </p>
         <p class="end">
             <button *ngIf="!progressService.gameOver" (click)="endGame()">End Game Now</button>
         </p>

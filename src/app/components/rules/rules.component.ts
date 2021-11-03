@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Difficulty } from 'src/app/enums/difficulty';
 import { ProgressService } from 'src/app/services/progress.service';
 import { GAME_SETTINGS } from "../../settings/game-settings";
 
@@ -28,4 +29,16 @@ export class RulesComponent implements OnInit {
     this.toggleShowHowToPlay();
   }
 
+  easyDifficulty() {
+    this.progressService.difficulty = Difficulty.easy;
+  }
+  normalDifficulty() {
+    this.progressService.difficulty = Difficulty.normal;
+  }
+  hardDifficulty() {
+    this.progressService.difficulty = Difficulty.hard;
+  }
+  evilDifficulty() {
+    this.progressService.difficulty = Difficulty.evil;
+  }
 }
