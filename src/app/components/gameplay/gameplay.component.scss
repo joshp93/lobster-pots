@@ -1,0 +1,16 @@
+.content {
+    position: relative;
+}
+.flipped {
+    transform: rotateX(180deg);
+}
+.gamePanels {
+    padding: 1rem;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: transform 0.5s ease-in-out;
+}

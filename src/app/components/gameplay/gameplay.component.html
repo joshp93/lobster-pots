@@ -3,15 +3,16 @@
         <app-game-over (startOverEvent)="startOver()"></app-game-over>
     </ng-container>
     <ng-template #gameTemplate>
-        <ng-container *ngIf="!results.title;else roundResultTemplate">
+        <div class="setup gamePanels" [ngClass]="{ 'flipped' : results.title }">
             <app-setup [setup]="setup" [potsOnshore]="potsOnshore" [potsOffshore]="potsOffshore"></app-setup>
             <div class="buttons">
-                <button id="lobster" type="submit" (click)="goLobstering()"><img src="assets/lobster.png" alt="Lobster image"> Get
+                <button id="lobster" type="submit" (click)="goLobstering()"><img src="assets/lobster.png"
+                        alt="Lobster image"> Get
                     Lobstering!</button>
             </div>
-        </ng-container>
-        <ng-template #roundResultTemplate>
+        </div>
+        <div class="results gamePanels" [ngClass]="{ 'flipped' : !results.title }">
             <app-results [results]="results" (nextDayEvent)="nextDay()"></app-results>
-        </ng-template>
+        </div>
     </ng-template>
 </div>

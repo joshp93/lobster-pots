@@ -22,6 +22,10 @@ export class SetupComponent implements OnInit {
     this.setup = this.gameplayService.buyPot(this.setup);
   }
 
+  sellPot() {
+    this.gameplayService.sellPot(this.setup);
+  }
+
   moveNext(onshore: HTMLInputElement, offshore: HTMLInputElement) {
     if (document.activeElement === onshore) {
       offshore.focus();

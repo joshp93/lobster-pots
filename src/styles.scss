@@ -23,8 +23,8 @@ img {
 }
 
 .content {
-    min-height: 100vh;
-    max-height: fit-content;
+    box-sizing: border-box;
+    height: 100vh;
     margin: 0px 20% 0px 20%;
     padding: 1rem;
     background-color: floralwhite;

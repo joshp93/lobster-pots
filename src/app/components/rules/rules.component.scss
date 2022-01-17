@@ -4,6 +4,7 @@
     z-index: 12;
     box-shadow: rgb(153, 153, 153) 0px 5px 15px;
     margin-left: 4vw;
+    transition: transform 0.5s ease-in-out;
     .rules {
         background-color: floralwhite;
         font-size: 1.5rem;
@@ -45,7 +46,7 @@
     }
 }
 .hidden {
-    display: none;
+    transform: translateY(-200vh);
 }
 .difficulty {
     button {
