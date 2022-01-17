@@ -10,8 +10,6 @@ import { ProgressService } from 'src/app/services/progress.service';
 })
 export class SetupComponent implements OnInit {
   @Input() setup: Setup = new Setup();
-  @Input() potsOnshore: string = "";
-  @Input() potsOffshore: string = "";
 
   constructor(public gameplayService: GameplayService, public progressService: ProgressService) { }
 
@@ -36,4 +34,8 @@ export class SetupComponent implements OnInit {
       }
     }
   }
+
+  checkMaximumOnshore = () => this.progressService.potsOnshore = this.progressService.potsOnshore > this.progressService.onshoreAvailablePots ? this.progressService.onshoreAvailablePots : this.progressService.potsOnshore;
+  
+  checkMaximumOffshore = () => this.progressService.potsOffshore = this.progressService.potsOffshore > this.progressService.offshoreAvailablePots ? this.progressService.offshoreAvailablePots : this.progressService.potsOffshore;
 }

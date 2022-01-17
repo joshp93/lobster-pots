@@ -4,7 +4,7 @@
     </ng-container>
     <ng-template #gameTemplate>
         <div class="setup gamePanels" [ngClass]="{ 'flipped' : results.title }">
-            <app-setup [setup]="setup" [potsOnshore]="potsOnshore" [potsOffshore]="potsOffshore"></app-setup>
+            <app-setup [setup]="setup"></app-setup>
             <div class="buttons">
                 <button id="lobster" type="submit" (click)="goLobstering()"><img src="assets/lobster.png"
                         alt="Lobster image"> Get

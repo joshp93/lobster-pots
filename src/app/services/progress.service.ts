@@ -50,14 +50,14 @@ export class ProgressService {
     return parseInt(sessionStorage.getItem('potsOnshore') || '0');
   }
   set potsOnshore(value: number) {
-    sessionStorage.setItem('potsOnshore', value.toString());
+    sessionStorage.setItem('potsOnshore', value ? value.toString() : '');
   }
 
   get potsOffshore(): number {
     return parseInt(sessionStorage.getItem('potsOffshore') || '0');
   }
   set potsOffshore(value: number) {
-    sessionStorage.setItem('potsOffshore', value.toString());
+    sessionStorage.setItem('potsOffshore', value ? value.toString() : '');
   }
 
   get income(): number {

@@ -24,16 +24,16 @@
         <td><img src="assets/lobster.png" alt="Lobster image"> Onshore</td>
         <td class="price">{{ setup.onshorePrice }}💰</td>
         <td class="actions">
-            <input type="number" min="0" [max]="progressService.onshoreAvailablePots" [(ngModel)]="potsOnshore"
-                (blur)="potsOnshore = gameplayService.placeOnshore(potsOnshore)" (keyup.enter)="moveNext(onshore, offshore)" #onshore>
+            <input type="number" min="0" [max]="progressService.onshoreAvailablePots" [(ngModel)]="progressService.potsOnshore"
+                (blur)="checkMaximumOnshore()" (keyup.enter)="moveNext(onshore, offshore)" #onshore>
         </td>
     </tr>
     <tr>
         <td><img src="assets/lobster.png" alt="Lobster image"> Offshore</td>
         <td class="price">{{ setup.offshorePrice }}💰</td>
         <td class="actions">
-            <input type="number" min="0" [max]="progressService.offshoreAvailablePots" [(ngModel)]="potsOffshore"
-                (blur)="potsOffshore = gameplayService.placeOffshore(potsOffshore)" (keyup.enter)="moveNext(onshore, offshore)" #offshore>
+            <input type="number" min="0" [max]="progressService.offshoreAvailablePots" [(ngModel)]="progressService.potsOffshore"
+                (blur)="checkMaximumOffshore()" (keyup.enter)="moveNext(onshore, offshore)" #offshore>
         </td>
     </tr>
 </table>

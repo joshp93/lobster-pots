@@ -89,6 +89,10 @@ img {
                 text-align: right;
                 font-size: 1.5rem;
                 font-family: inherit;
+                &:hover,
+                &:focus {
+                    border-bottom-width: 2px;
+                }
             }
         }
     }

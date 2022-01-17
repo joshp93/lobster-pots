@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Results } from 'src/app/classes/results';
 import { Setup } from 'src/app/classes/setup';
 import { GameplayService } from 'src/app/services/gameplay.service';
@@ -12,8 +12,6 @@ import { ProgressService } from 'src/app/services/progress.service';
 export class GameplayComponent implements OnInit {
   setup: Setup;
   results: Results = new Results();
-  potsOnshore: string = "";
-  potsOffshore: string = "";
 
   constructor(public gameplayService: GameplayService, public progressService: ProgressService) {
     if (progressService.setup === null) {
@@ -32,8 +30,6 @@ export class GameplayComponent implements OnInit {
   }
 
   nextDay() {
-    this.potsOnshore = "";
-    this.potsOffshore = "";
     this.progressService.day += 1;
     this.results = new Results();
     this.setup = this.gameplayService.getRoundSetup();
