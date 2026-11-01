@@ -1,20 +1,20 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { Setup } from 'src/app/classes/setup';
-import { GameplayService } from 'src/app/services/gameplay.service';
-import { ProgressService } from 'src/app/services/progress.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { Setup } from '../../../classes/setup';
+import { GameplayService } from '../../../services/gameplay.service';
+import { ProgressService } from '../../../services/progress.service';
 
 @Component({
   selector: 'app-setup',
+  imports: [FormsModule],
   templateUrl: './setup.component.html',
-  styleUrls: ['./setup.component.scss']
+  styleUrl: './setup.component.scss'
 })
-export class SetupComponent implements OnInit {
+export class SetupComponent {
   @Input() setup: Setup = new Setup();
 
   constructor(public gameplayService: GameplayService, public progressService: ProgressService) { }
-
-  ngOnInit(): void {
-  }
 
   buyPot() {
     this.setup = this.gameplayService.buyPot(this.setup);
@@ -36,6 +36,6 @@ export class SetupComponent implements OnInit {
   }
 
   checkMaximumOnshore = () => this.progressService.potsOnshore = this.progressService.potsOnshore > this.progressService.onshoreAvailablePots ? this.progressService.onshoreAvailablePots : this.progressService.potsOnshore;
-  
+
   checkMaximumOffshore = () => this.progressService.potsOffshore = this.progressService.potsOffshore > this.progressService.offshoreAvailablePots ? this.progressService.offshoreAvailablePots : this.progressService.potsOffshore;
 }

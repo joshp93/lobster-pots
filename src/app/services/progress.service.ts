@@ -1,16 +1,17 @@
-import { CoolSessionStorage } from '@angular-cool/storage';
 import { Injectable } from '@angular/core';
+
 import { Results } from '../classes/results';
 import { Setup } from '../classes/setup';
 import { Difficulty } from '../enums/difficulty';
 import { GAME_SETTINGS } from '../settings/game-settings';
+import { readSessionJson, writeSessionJson } from './session-storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgressService {
 
-  constructor(private coolSessionStorage: CoolSessionStorage) { 
+  constructor() {
     if (!sessionStorage.getItem('day')) {
       this.newGame();
     }
@@ -112,10 +113,10 @@ export class ProgressService {
   }
 
   get setup(): Setup | null {
-    return this.coolSessionStorage.getObject('setup');
+    return readSessionJson<Setup>('setup');
   }
   set setup(value: Setup | null) {
-    this.coolSessionStorage.setObject('setup', value);
+    writeSessionJson('setup', value);
   }
   get totalLobstersCaught(): number {
     return parseInt(sessionStorage.getItem('totalLobstersCaught') || '0');
@@ -125,10 +126,10 @@ export class ProgressService {
   }
 
   get results(): Results | null {
-    return this.coolSessionStorage.getObject('results');
+    return readSessionJson<Results>('results');
   }
   set results(value: Results | null) {
-    this.coolSessionStorage.setObject('results', value);
+    writeSessionJson('results', value);
   }
 
   get gameOver(): boolean {

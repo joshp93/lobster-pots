@@ -1,9 +1,8 @@
 <div class="content">
-    <ng-container *ngIf="progressService.gameOver;else gameTemplate">
+    @if (progressService.gameOver) {
         <app-game-over (startOverEvent)="startOver()"></app-game-over>
-    </ng-container>
-    <ng-template #gameTemplate>
-        <div class="setup gamePanels" [ngClass]="{ 'flipped' : results.title }">
+    } @else {
+        <div class="setup gamePanels" [class.flipped]="!!results.title">
             <app-setup [setup]="setup"></app-setup>
             <div class="buttons">
                 <button id="lobster" type="submit" (click)="goLobstering()"><img src="assets/lobster.png"
@@ -11,8 +10,8 @@
                     Lobstering!</button>
             </div>
         </div>
-        <div class="results gamePanels" [ngClass]="{ 'flipped' : !results.title }">
+        <div class="results gamePanels" [class.flipped]="!results.title">
             <app-results [results]="results" (nextDayEvent)="nextDay()"></app-results>
         </div>
-    </ng-template>
+    }
 </div>

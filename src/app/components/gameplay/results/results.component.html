@@ -1,16 +1,19 @@
 <h1>{{ results.title }}</h1>
 <br>
 <p [class.alert]="results.alert">{{ results.weatherConditionsDescription }}</p>
-<p [class.alert]="results.alert" *ngIf="results.potsLost">Ye lost {{ results.potsLost }}🏺 to
-    the storm!</p>
-<p [class.positiveAlert]="results.success" *ngIf="results.lobstersCaught > 0;else failTemplate">Ye
-    caught {{ results.lobstersCaught }}<img src="assets/lobster.png" alt="Lobster image">
-    and made {{ results.income }}💰</p>
-<ng-template #failTemplate>
+@if (results.potsLost) {
+    <p [class.alert]="results.alert">Ye lost {{ results.potsLost }}🏺 to
+        the storm!</p>
+}
+@if (results.lobstersCaught > 0) {
+    <p [class.positiveAlert]="results.success">Ye
+        caught {{ results.lobstersCaught }}<img src="assets/lobster.png" alt="Lobster image">
+        and made {{ results.income }}💰</p>
+} @else {
     <p [class.alert]="!results.success">Ye didn't catch any <img src="assets/lobster.png" alt="Lobster"> or make
         any 💰. Better luck next
         time!</p>
-</ng-template>
+}
 <div class="buttons">
     <button type="submit" (click)="nextDay()">☀ Go To Next Day...</button>
 </div>

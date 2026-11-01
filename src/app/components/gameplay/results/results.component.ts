@@ -1,22 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Results } from 'src/app/classes/results';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Results } from '../../../classes/results';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss']
+  styleUrl: './results.component.scss'
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent {
   @Input() results: Results = new Results();
   @Output() nextDayEvent = new EventEmitter<void>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   nextDay() {
     this.nextDayEvent.emit();
   }
-
 }

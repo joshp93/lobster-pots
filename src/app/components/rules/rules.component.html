@@ -42,7 +42,9 @@
             <button (click)="evilDifficulty()">Evil</button>
         </p>
         <p class="end">
-            <button *ngIf="!progressService.gameOver" (click)="endGame()">End Game Now</button>
+            @if (!progressService.gameOver) {
+                <button (click)="endGame()">End Game Now</button>
+            }
         </p>
     </div>
 </div>

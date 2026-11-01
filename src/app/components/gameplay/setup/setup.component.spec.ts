@@ -1,4 +1,3 @@
-import { CoolSessionStorage } from '@angular-cool/storage';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SetupComponent } from './setup.component';
@@ -9,10 +8,8 @@ describe('SetupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SetupComponent ],
-      providers: [CoolSessionStorage]
-    })
-    .compileComponents();
+      imports: [SetupComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

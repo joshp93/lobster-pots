@@ -4,13 +4,18 @@
     setup.weatherConditionsDescription }}</p>
 <p [class.alert]="setup.marketAlert" [class.positiveAlert]="setup.positiveMarketAlert">{{
     setup.marketConditionsDescription }}</p>
-<p [class.alert]="setup.rentDue" *ngIf="setup.rentDue && !setup.rentDueTomorrow">{{
-    setup.rentValue }}💰 in rent has been taken from ye!</p>
-<p *ngIf="setup.rentDueTomorrow && !setup.rentWarning">
-    {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow!</p>
-<p [class.alert]="setup.rentDueTomorrow" *ngIf="setup.rentDueTomorrow && setup.rentWarning">
-    {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow! Ye don't have enough money at the
-    moment! Get lobstering!</p>
+@if (setup.rentDue && !setup.rentDueTomorrow) {
+    <p [class.alert]="setup.rentDue">{{ setup.rentValue }}💰 in rent has been taken from ye!</p>
+}
+@if (setup.rentDueTomorrow && !setup.rentWarning) {
+    <p>
+        {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow!</p>
+}
+@if (setup.rentDueTomorrow && setup.rentWarning) {
+    <p [class.alert]="setup.rentDueTomorrow">
+        {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow! Ye don't have enough money at the
+        moment! Get lobstering!</p>
+}
 <table>
     <tr>
         <td>🏺</td>
