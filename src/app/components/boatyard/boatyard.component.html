@@ -1,0 +1,125 @@
+<app-modal [show]="show" title="Boatyard" (closed)="close()">
+    <div class="boatyard-content" [attr.data-revision]="progressService.revision()">
+        @if (selectedBoat; as boat) {
+            <h2>{{ boat.name }}</h2>
+            <p>
+                {{ sizeLabel(boat.size) }} · {{ strengthLabel(boat) }} · damage
+                {{ boat.damage }}% · capacity {{ boatCapacity(boat) }} pots
+            </p>
+            <div class="rename">
+                <input #renameInput [value]="boat.name" maxlength="40" aria-label="Boat name" />
+                <button type="button" (click)="rename(boat, renameInput.value)">Rename</button>
+            </div>
+            <table>
+                <tr>
+                    <th>Action</th>
+                    <th>Cost</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Repair to 0%</td>
+                    <td>{{ repairCostFor(boat) }}💰</td>
+                    <td>
+                        <button
+                            type="button"
+                            [disabled]="boat.damage <= 0 || !canAfford(repairCostFor(boat))"
+                            (click)="repair(boat)"
+                        >
+                            Repair
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fortify to {{ nextStrengthLabel(boat) }}</td>
+                    @if (fortifyCostFor(boat); as cost) {
+                        <td>{{ cost }}💰</td>
+                        <td>
+                            <button
+                                type="button"
+                                [disabled]="!canAfford(cost)"
+                                (click)="fortify(boat)"
+                            >
+                                Fortify
+                            </button>
+                        </td>
+                    } @else {
+                        <td>—</td>
+                        <td><button type="button" disabled>Max</button></td>
+                    }
+                </tr>
+                <tr>
+                    <td>Add pot slot ({{ boat.capacityBonus }} bonus slots)</td>
+                    @if (upgradeCostFor(boat); as cost) {
+                        <td>{{ cost }}💰</td>
+                        <td>
+                            <button
+                                type="button"
+                                [disabled]="!canAfford(cost)"
+                                (click)="upgradeCapacity(boat)"
+                            >
+                                Upgrade
+                            </button>
+                        </td>
+                    } @else {
+                        <td>—</td>
+                        <td><button type="button" disabled>Max</button></td>
+                    }
+                </tr>
+                <tr>
+                    <td>Sell boat</td>
+                    <td>{{ resaleFor(boat) }}💰</td>
+                    <td><button type="button" (click)="sell(boat)">Sell</button></td>
+                </tr>
+            </table>
+        } @else {
+            <p>Choose a boat from the fleet in the stats bar, or buy one below.</p>
+        }
+
+        @if (message) {
+            <p class="message">{{ message }}</p>
+        }
+        @if (freeRepairs) {
+            <p class="good">This premises repairs boats for free.</p>
+        }
+        @if (wreckRecovery) {
+            <p class="good">
+                This premises recovers wrecked boats and 40% of their pots and catch.
+            </p>
+        }
+
+        <h3>Boats for sale</h3>
+        <p>Fresh boats arrive in {{ refreshIn }} day(s).</p>
+        @if (offers.length === 0) {
+            <p>No boats for sale right now.</p>
+        } @else {
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Strength</th>
+                    <th>Capacity</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                @for (offer of offers; track offer.id) {
+                    <tr>
+                        <td>{{ offer.name }}</td>
+                        <td>{{ sizeLabel(offer.size) }}</td>
+                        <td>{{ strengthForOffer(offer) }}</td>
+                        <td>{{ offerCapacity(offer) }} pots</td>
+                        <td>{{ offer.price }}💰</td>
+                        <td>
+                            <button
+                                type="button"
+                                [disabled]="!canAffordOffer(offer)"
+                                (click)="buyOffer(offer)"
+                            >
+                                Buy
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</app-modal>

@@ -1,3 +1,19 @@
-<app-progress (showHowToPlayEvent)="toggleShowHowToPlay()"></app-progress>
-<app-rules [showHowToPlay]="showHowToPlay" (showHowToPlayEvent)="toggleShowHowToPlay()"></app-rules>
-<app-gameplay></app-gameplay>
+<div class="app-shell">
+    <app-progress
+        (showHowToPlayEvent)="toggleShowHowToPlay()"
+        (showPremisesEvent)="toggleShowPremises()"
+        (showBoatyardEvent)="toggleShowBoatyard($event)"
+    ></app-progress>
+    <app-gameplay></app-gameplay>
+</div>
+
+<app-rules
+    [showHowToPlay]="showHowToPlay"
+    (showHowToPlayEvent)="toggleShowHowToPlay()"
+></app-rules>
+<app-premises [show]="showPremises" (showEvent)="toggleShowPremises()"></app-premises>
+<app-boatyard
+    [show]="showBoatyard"
+    [boatId]="selectedBoatId"
+    (showEvent)="closeBoatyard()"
+></app-boatyard>

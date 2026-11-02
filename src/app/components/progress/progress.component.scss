@@ -1,37 +1,116 @@
-table {
-    background-color: lightgreen;
-    box-shadow: rgb(153, 153, 153) 0px 5px 15px;
-    font-size: 1.5rem;
-    border-radius: 0px 0px 5px 0px;
-    text-align: center;
-    td {
-        border-right: 1px solid;
-        padding: 0.5rem;
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.75rem;
+    color: #2b1a12;
+
+    h2 {
+        margin: 0.4rem 0 0.2rem;
+        font-size: 1.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
-    img {
-        height: 2rem;
-        width: 2rem;
-    }
-    .row1 {
-        td:last-of-type {
-            border-right: none;
+
+    .stat {
+        display: grid;
+        grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+        gap: 0.4rem;
+        align-items: baseline;
+        padding: 0.25rem 0.35rem;
+        background-color: rgba(255, 255, 255, 0.35);
+        border-radius: 4px;
+        font-size: 1.05rem;
+
+        .icon {
+            text-align: center;
+        }
+
+        .name {
+            font-weight: 600;
+        }
+
+        .value {
+            text-align: right;
+            white-space: nowrap;
         }
     }
-    .howToPlayButton {
-        background-color: transparent;
-        color: salmon;
-        font-size: 1.5rem;
-        padding: 1rem;
+
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 0.35rem 0;
+    }
+
+    .boat {
+        padding: 0.35rem;
+        border-left: 4px solid rgba(46, 241, 255, 0.7);
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        font-size: 0.95rem;
+
+        .boatName {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .boatMeta {
+            color: #5a3a2a;
+        }
+
+        button {
+            margin-top: 0.25rem;
+        }
+    }
+
+    .wrecked {
+        border-left-color: #b22222;
+        background-color: rgba(178, 34, 34, 0.15);
+    }
+
+    button {
         border: none;
-        border-radius: 0px 5px 5px 0px;
-        transition: outline 0.2s;
+        font-family: inherit;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.55rem;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.65);
         cursor: pointer;
     }
-    .howToPlayButton:hover,
-    .howToPlayButton:focus {
-        text-decoration: underline;
+
+    button:hover,
+    button:focus {
+        outline: 2px solid #2b1a12;
     }
-}
-table:focus {
-    outline: 3px solid lightgreen;
+
+    .buyButton {
+        align-self: flex-start;
+        background-color: lightgreen;
+        font-weight: 700;
+        margin-top: 0.25rem;
+    }
+
+    .potMarket {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.35rem;
+        background-color: rgba(255, 255, 255, 0.35);
+        border-radius: 4px;
+
+        .potButtons {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.2rem;
+        }
+    }
+
+    .potMessage {
+        margin: 0;
+        padding: 0.25rem 0.35rem;
+        border-radius: 4px;
+        background-color: rgba(46, 241, 255, 0.4);
+        font-size: 0.9rem;
+    }
 }

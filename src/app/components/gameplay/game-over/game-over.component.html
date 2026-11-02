@@ -1,30 +1,12 @@
 <h1>Game Over!</h1>
 <p>{{ progressService.gameOverReason }}</p>
-@if (progressService.day * progressService.totalLobstersCaught < 100) {
-    <p>
-        Looks like ye need more practice matey!
-    </p>
-}
-@if (progressService.day * progressService.totalLobstersCaught < 500 && progressService.day * progressService.totalLobstersCaught > 99) {
-    <p>
-        Avast me hearty! Ye were not so bad out there!
-    </p>
-}
-@if (progressService.day * progressService.totalLobstersCaught < 10000 && progressService.day * progressService.totalLobstersCaught > 499) {
-    <p>
-        Blimey matey, ye be getting pretty good at this!
-    </p>
-}
-@if (progressService.day * progressService.totalLobstersCaught > 9999) {
-    <p>
-        Blow me down! yer a bona fide lobster lover! Good job matey!
-    </p>
-}
-<p>Ye caught {{ progressService.totalLobstersCaught }}<img src="assets/lobster.png" alt="Lobster image"> and
+<h2>{{ performance.title }}</h2>
+<p>{{ performance.description }}</p>
+<p>Ye caught {{ progressService.totalLobstersCaught }}<img src="assets/lobster.png" alt="Lobster"> and
     survived for a total of {{ progressService.day }} days.
     <br>Ye were paying {{ progressService.rentValue }}💰 in rent and ye turned over {{ progressService.turnover }}💰
 </p>
 <div class="buttons">
-    <button type="submit" (click)="startOver()"><img src="assets/lobster.png" alt="Lobster image"> Start
+    <button type="submit" (click)="startOver()"><img src="assets/lobster.png" alt="Lobster"> Start
         Over!</button>
 </div>

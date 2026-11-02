@@ -1,14 +1,90 @@
-<table>
-    <tr class="row1">
-        <td title="Net Income" aria-label="Net Income">💰 {{ progressService.netProfit }}</td>
-        <td title="Total Lobsters Caught" aria-label="Total Lobsters Caught"><img src="assets/lobster.png" alt="Lobster image"> {{ progressService.totalLobstersCaught }}</td>
-        <td title="Day" aria-label="Day">☀ {{ progressService.day }}</td>
-        <td title="Rent to Pay">🏦 {{ progressService.rentValue }}</td>
-    </tr>
-    <tr>
-        <td title="Total Pots" aria-label="Total Pots">🏺 {{ progressService.totalAvailablePots }}</td>
-        <td title="Pots Onshore" aria-label="Pots Onshore">🏖 {{ progressService.potsOnshore }}</td>
-        <td title="Pots Offshore" aria-label="Pots Offshore">🌊 {{ progressService.potsOffshore }}</td>
-        <button class="howToPlayButton" (click)="toggleShowHowToPlay()">⚙?</button>
-    </tr>
-</table>
+<div class="stats" [attr.data-revision]="progressService.revision()">
+    <h2>Current stats</h2>
+
+    <div class="stat">
+        <span class="icon">💰</span>
+        <span class="name">Net profit</span>
+        <span class="value">{{ progressService.netProfit }}💰</span>
+    </div>
+    <div class="stat">
+        <span class="icon">🦞</span>
+        <span class="name">Total lobsters caught</span>
+        <span class="value">{{ progressService.totalLobstersCaught }}</span>
+    </div>
+    <div class="stat">
+        <span class="icon">☀</span>
+        <span class="name">Date and season</span>
+        <span class="value">Day {{ progressService.day }} · {{ seasonLabel }}</span>
+    </div>
+    <div class="stat">
+        <span class="icon">📈</span>
+        <span class="name">Demand</span>
+        <span class="value">{{ demand }}/10 · {{ demandLabel }}</span>
+    </div>
+    <div class="stat">
+        <span class="icon">🏺</span>
+        <span class="name">Pots</span>
+        <span class="value">{{ progressService.totalPots }}/{{ progressService.capacity }}</span>
+    </div>
+    <div class="stat">
+        <span class="icon">🏖</span>
+        <span class="name">Pots inshore</span>
+        <span class="value">{{ progressService.potsInshore }}</span>
+    </div>
+    <div class="stat">
+        <span class="icon">🌊</span>
+        <span class="name">Pots offshore</span>
+        <span class="value">{{ progressService.potsOffshore }}</span>
+    </div>
+    <div class="stat">
+        <span class="icon">🏠</span>
+        <span class="name">Premises</span>
+        <span class="value">{{ premisesName }}</span>
+    </div>
+    <div class="stat">
+        <span class="icon">🏦</span>
+        <span class="name">{{ rentDueLabel }}</span>
+        <span class="value">{{ progressService.rentValue }}💰</span>
+    </div>
+
+    <div class="actions">
+        <button type="button" (click)="togglePremises()">Premises</button>
+        <button type="button" (click)="toggleShowHowToPlay()">How to play</button>
+    </div>
+
+    <h2>Fleet</h2>
+    <button class="buyButton" type="button" (click)="openBoatMarket()">Buy boats</button>
+    @if (boats.length === 0) {
+        <p>No boats in yer fleet.</p>
+    }
+    @for (boat of boats; track boat.id) {
+        <div class="boat" [class.wrecked]="boat.damage >= 100">
+            <div class="boatName">{{ boat.name }}</div>
+            <div class="boatMeta">{{ boatSize(boat) }} · {{ strengthLabel(boat) }}</div>
+            <div class="boatMeta">
+                Damage {{ boat.damage }}% · Capacity {{ boatCapacity(boat) }} pots
+            </div>
+            <div class="boatMeta">
+                @if (boat.ground) {
+                    {{ groundLabel(boat) }} · {{ boat.pots }} pots loaded
+                } @else {
+                    Docked
+                }
+            </div>
+            <button type="button" (click)="openBoatyard(boat.id)">Boatyard</button>
+        </div>
+    }
+
+    <h2>Pots</h2>
+    <div class="potMarket">
+        <span>🏺 {{ progressService.totalPots }}/{{ progressService.capacity }} owned</span>
+        <span>{{ potPrice }}💰 each · resale {{ potPrice / 2 }}💰</span>
+        <div class="potButtons">
+            <button type="button" [disabled]="!canBuyPot" (click)="buyPot()">Buy pot</button>
+            <button type="button" [disabled]="!canSellPot" (click)="sellPot()">Sell pot</button>
+        </div>
+    </div>
+    @if (potMessage) {
+        <p class="potMessage">{{ potMessage }}</p>
+    }
+</div>

@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" [attr.data-revision]="progressService.revision()">
     @if (progressService.gameOver) {
         <app-game-over (startOverEvent)="startOver()"></app-game-over>
     } @else {
@@ -6,7 +6,7 @@
             <app-setup [setup]="setup"></app-setup>
             <div class="buttons">
                 <button id="lobster" type="submit" (click)="goLobstering()"><img src="assets/lobster.png"
-                        alt="Lobster image"> Get
+                        alt="Lobster"> Get
                     Lobstering!</button>
             </div>
         </div>

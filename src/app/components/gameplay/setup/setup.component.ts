@@ -1,41 +1,94 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 
+import type { Boat } from '../../../classes/boat';
 import { Setup } from '../../../classes/setup';
+import { BoatSize } from '../../../enums/boat-size';
+import { FishingGround } from '../../../enums/fishing-ground';
+import { boatCapacity } from '../../../mechanics/boats/boat-capacity';
+import { boatSizeLabel } from '../../../mechanics/boats/boat-size-label';
+import { hasFreeRepairs } from '../../../mechanics/premises/has-free-repairs';
+import { hasWreckRecovery } from '../../../mechanics/premises/has-wreck-recovery';
+import { reputationDescription } from '../../../mechanics/premises/reputation-multiplier';
 import { GameplayService } from '../../../services/gameplay.service';
 import { ProgressService } from '../../../services/progress.service';
 
 @Component({
-  selector: 'app-setup',
-  imports: [FormsModule],
-  templateUrl: './setup.component.html',
-  styleUrl: './setup.component.scss'
+    selector: 'app-setup',
+    templateUrl: './setup.component.html',
+    styleUrl: './setup.component.scss'
 })
 export class SetupComponent {
-  @Input() setup: Setup = new Setup();
+    @Input() setup: Setup = new Setup();
 
-  constructor(public gameplayService: GameplayService, public progressService: ProgressService) { }
+    readonly inshore = FishingGround.inshore;
+    readonly offshore = FishingGround.offshore;
+    readonly largeBoat = BoatSize.large;
 
-  buyPot() {
-    this.setup = this.gameplayService.buyPot(this.setup);
-  }
+    constructor(
+        public gameplayService: GameplayService,
+        public progressService: ProgressService
+    ) {}
 
-  sellPot() {
-    this.gameplayService.sellPot(this.setup);
-  }
-
-  moveNext(onshore: HTMLInputElement, offshore: HTMLInputElement) {
-    if (document.activeElement === onshore) {
-      offshore.focus();
-    } else {
-      const button = document.getElementById("lobster");
-      if (button) {
-        button.focus();
-      }
+    get demandMultiplierText(): string {
+        return this.setup.demandMultiplier.toFixed(2);
     }
-  }
 
-  checkMaximumOnshore = () => this.progressService.potsOnshore = this.progressService.potsOnshore > this.progressService.onshoreAvailablePots ? this.progressService.onshoreAvailablePots : this.progressService.potsOnshore;
+    get rentDueText(): string {
+        return this.setup.rentDueIn === 0
+            ? 'due today'
+            : `due in ${this.setup.rentDueIn} day${this.setup.rentDueIn === 1 ? '' : 's'}`;
+    }
 
-  checkMaximumOffshore = () => this.progressService.potsOffshore = this.progressService.potsOffshore > this.progressService.offshoreAvailablePots ? this.progressService.offshoreAvailablePots : this.progressService.potsOffshore;
+    get premisesName(): string {
+        return this.progressService.premises.name;
+    }
+
+    get reputationText(): string {
+        return reputationDescription(this.progressService.premises.reputationMultiplier);
+    }
+
+    get freeRepairs(): boolean {
+        return hasFreeRepairs(this.progressService.premises.rarity);
+    }
+
+    get wreckRecovery(): boolean {
+        return hasWreckRecovery(this.progressService.premises.rarity);
+    }
+
+    get usableBoats(): Boat[] {
+        return this.progressService.boats.filter((boat) => boat.damage < 100);
+    }
+
+    get assignedPots(): number {
+        return this.progressService.potsInshore + this.progressService.potsOffshore;
+    }
+
+    get remainingPots(): number {
+        return Math.max(0, this.progressService.totalPots - this.assignedPots);
+    }
+
+    boatCapacity(boat: Boat): number {
+        return boatCapacity(boat);
+    }
+
+    boatSize(boat: Boat): string {
+        return boatSizeLabel(boat.size);
+    }
+
+    setGround(boat: Boat, ground: FishingGround | null) {
+        this.gameplayService.setBoatGround(boat.id, ground);
+    }
+
+    setPots(boat: Boat, event: Event) {
+        const value = Number((event.target as HTMLInputElement).value);
+        this.gameplayService.setBoatPots(boat.id, value);
+    }
+
+    fillBoat(boat: Boat) {
+        this.gameplayService.fillBoat(boat.id);
+    }
+
+    dockBoat(boat: Boat) {
+        this.gameplayService.dockBoat(boat.id);
+    }
 }

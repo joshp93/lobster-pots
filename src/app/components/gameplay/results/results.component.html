@@ -1,19 +1,67 @@
 <h1>{{ results.title }}</h1>
-<br>
-<p [class.alert]="results.alert">{{ results.weatherConditionsDescription }}</p>
-@if (results.potsLost) {
-    <p [class.alert]="results.alert">Ye lost {{ results.potsLost }}🏺 to
-        the storm!</p>
+<p [class.alert]="results.alert">{{ results.stormDescription }}</p>
+
+@if (results.potsLostInshore > 0 || results.potsLostOffshore > 0) {
+    <p class="alert">
+        Storm losses: {{ results.potsLostOffshore }} offshore and
+        {{ results.potsLostInshore }} inshore pots lost.
+    </p>
 }
-@if (results.lobstersCaught > 0) {
-    <p [class.positiveAlert]="results.success">Ye
-        caught {{ results.lobstersCaught }}<img src="assets/lobster.png" alt="Lobster image">
-        and made {{ results.income }}💰</p>
-} @else {
-    <p [class.alert]="!results.success">Ye didn't catch any <img src="assets/lobster.png" alt="Lobster"> or make
-        any 💰. Better luck next
-        time!</p>
+
+@if (hasBoatDamage) {
+    <h2>Boat damage</h2>
+    <ul>
+        @for (boat of results.boatDamage; track boat.boatId) {
+            <li>
+                {{ boat.name }} ({{ boatSize(boat.size) }}): {{ boat.damageBefore }}% →
+                {{ boat.damageAfter }}% damage
+            </li>
+        }
+    </ul>
 }
+
+@if (hasBoatLosses) {
+    <h2>Wrecks</h2>
+    <ul>
+        @for (loss of results.boatLosses; track loss.boatId) {
+            <li class="alert">
+                {{ loss.name }} ({{ boatSize(loss.size) }})
+                {{ loss.boatLost ? 'lost at sea' : 'recovered' }}.
+                Pots lost: {{ loss.potsLost }}, recovered: {{ loss.potsRecovered }}. Income lost:
+                {{ loss.incomeLost }}💰, recovered: {{ loss.incomeRecovered }}💰.
+            </li>
+        }
+    </ul>
+}
+
+@if (hasCatches) {
+    <h2>Your catch</h2>
+    <table>
+        <tr>
+            <th>Ground</th>
+            <th>Size</th>
+            <th>Shell</th>
+            <th>Count</th>
+            <th>Income</th>
+        </tr>
+        @for (summary of results.catches; track summary.ground + summary.size + summary.shell) {
+            <tr>
+                <td>{{ label(summary.ground) }}</td>
+                <td>{{ label(summary.size) }}</td>
+                <td>{{ label(summary.shell) }}</td>
+                <td>{{ summary.count }}</td>
+                <td>{{ summary.income }}💰</td>
+            </tr>
+        }
+    </table>
+}
+
+<p>
+    Ye caught {{ results.lobstersCaught }}<img src="assets/lobster.png" alt="Lobster" />
+    and made {{ results.income }}💰 this day (inshore {{ results.inshoreIncome }}💰, offshore
+    {{ results.offshoreIncome }}💰).
+</p>
+
 <div class="buttons">
     <button type="submit" (click)="nextDay()">☀ Go To Next Day...</button>
 </div>

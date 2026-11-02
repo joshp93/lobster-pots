@@ -1,0 +1,55 @@
+.boatLoads {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.boatLoad {
+    border: 2px solid rgba(250, 128, 114, 0.6);
+    border-radius: 6px;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.7);
+
+    &.assigned {
+        border-color: lightgreen;
+    }
+}
+
+.boatHeading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.4rem;
+
+    span {
+        color: #5a3a2a;
+    }
+
+    .damaged {
+        color: #b22222;
+        font-weight: 700;
+    }
+}
+
+.groundButtons,
+.potControls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.4rem;
+}
+
+.groundButtons button.active {
+    background-color: lightgreen;
+    outline: 2px solid;
+}
+
+.potControls input {
+    width: 4.5rem;
+    margin-left: 0.35rem;
+    font-family: inherit;
+    font-size: 1rem;
+    text-align: right;
+}

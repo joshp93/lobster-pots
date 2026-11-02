@@ -1,0 +1,60 @@
+<app-modal [show]="show" title="Premises" (closed)="close()">
+    <div class="premises-content" [attr.data-revision]="progressService.revision()">
+        <p>
+            <strong>{{ progressService.premises.name }}</strong>
+            ({{ rarityLabel(progressService.premises.rarity) }}) —
+            {{ progressService.premises.capacity }} pots · rent
+            {{ progressService.premises.weeklyRent }}💰/week · reputation {{ reputationText }}
+        </p>
+        @if (freeRepairs) {
+            <p class="good">In-house boat repairs: free.</p>
+        }
+        @if (wreckRecovery) {
+            <p class="good">Wreck recovery: up to 40% of pots and catch are recovered.</p>
+        }
+        <p>Offers refresh in {{ refreshIn }} day(s).</p>
+
+        @if (message) {
+            <p class="message">{{ message }}</p>
+        }
+
+        @if (offers.length === 0) {
+            <p>No bigger premises are on the market right now.</p>
+        } @else {
+            <table>
+                <tr>
+                    <th>Premises</th>
+                    <th>Rarity</th>
+                    <th>Pots</th>
+                    <th>Buy price</th>
+                    <th>Rent/week</th>
+                    <th>Reputation</th>
+                    <th></th>
+                </tr>
+                @for (offer of offers; track offer.id) {
+                    <tr>
+                        <td>{{ offer.name }}</td>
+                        <td>{{ rarityLabel(offer.rarity) }}</td>
+                        <td>
+                            {{ offer.capacity }} (+{{
+                                offer.capacity - progressService.premises.capacity
+                            }})
+                        </td>
+                        <td>{{ offer.purchasePrice }}💰</td>
+                        <td>{{ offer.weeklyRent }}💰</td>
+                        <td>{{ reputationDescriptionFor(offer.reputationMultiplier) }}</td>
+                        <td>
+                            <button
+                                type="submit"
+                                [disabled]="!canAfford(offer)"
+                                (click)="buy(offer)"
+                            >
+                                Buy
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</app-modal>

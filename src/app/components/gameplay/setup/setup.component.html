@@ -1,44 +1,99 @@
-<h1>{{ setup.title }}</h1>
+<h1 [attr.data-revision]="progressService.revision()">{{ setup.title }}</h1>
 <p>{{ setup.info }}</p>
-<p [class.alert]="setup.weatherAlert" [class.positiveAlert]="setup.positiveWeatherAlert">{{
-    setup.weatherConditionsDescription }}</p>
-<p [class.alert]="setup.marketAlert" [class.positiveAlert]="setup.positiveMarketAlert">{{
-    setup.marketConditionsDescription }}</p>
-@if (setup.rentDue && !setup.rentDueTomorrow) {
-    <p [class.alert]="setup.rentDue">{{ setup.rentValue }}💰 in rent has been taken from ye!</p>
+
+<p class="seasonLine">{{ setup.seasonDescription }}</p>
+<p>
+    <strong>Day {{ setup.day }}</strong> · Demand {{ setup.demand }}/10
+    ({{ setup.demandLabel }}) · prices ×{{ demandMultiplierText }} · catch chance
+    {{ setup.catchChance }}%
+</p>
+<p [class.alert]="setup.stormAlert">
+    {{ setup.forecastDescription }} Storm risk: offshore {{ setup.stormChanceOffshore }}%, inshore
+    {{ setup.stormChanceInshore }}%.
+</p>
+
+<p>
+    <strong>{{ premisesName }}</strong> · reputation {{ reputationText }} ·
+    {{ progressService.totalPots }}/{{ progressService.capacity }} pots · rent
+    {{ progressService.rentValue }}💰 {{ rentDueText }}.
+    @if (freeRepairs) {
+        <strong>Free boat repairs.</strong>
+    }
+    @if (wreckRecovery) {
+        <strong>Wreck recovery.</strong>
+    }
+</p>
+
+@if (setup.rentDue) {
+    <p class="alert">{{ setup.rentValue }}💰 in rent has been taken from ye!</p>
+} @else if (setup.rentDueTomorrow) {
+    <p [class.alert]="setup.rentWarning">
+        {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow!
+        @if (setup.rentWarning) {
+            Ye don't have enough money at the moment! Get lobstering!
+        }
+    </p>
 }
-@if (setup.rentDueTomorrow && !setup.rentWarning) {
-    <p>
-        {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow!</p>
+
+<h2>Load the boats</h2>
+<p>
+    {{ remainingPots }} of {{ progressService.totalPots }} pots still to load. Inshore grounds bring
+    mostly small and medium lobsters; offshore grounds bring mostly large and jumbo lobsters. Only
+    large boats can fish offshore. Use "Fill her up" to load as many free pots as a boat can carry.
+</p>
+
+@if (usableBoats.length === 0) {
+    <p class="alert">Ye have no seaworthy boats. Repair or buy one in the Boatyard.</p>
+} @else {
+    <div class="boatLoads">
+        @for (boat of usableBoats; track boat.id) {
+            <div class="boatLoad" [class.assigned]="boat.pots > 0">
+                <div class="boatHeading">
+                    <strong>{{ boat.name }}</strong>
+                    <span>{{ boatSize(boat) }} · {{ boatCapacity(boat) }} pots</span>
+                    <span class="damage" [class.damaged]="boat.damage >= 50"
+                        >Damage {{ boat.damage }}%</span
+                    >
+                </div>
+                <div class="groundButtons">
+                    <button
+                        type="button"
+                        [class.active]="boat.ground === inshore"
+                        (click)="setGround(boat, inshore)"
+                    >
+                        Inshore
+                    </button>
+                    <button
+                        type="button"
+                        [class.active]="boat.ground === offshore"
+                        [disabled]="boat.size !== largeBoat"
+                        (click)="setGround(boat, offshore)"
+                    >
+                        Offshore
+                    </button>
+                    <button
+                        type="button"
+                        [class.active]="boat.ground === null"
+                        (click)="dockBoat(boat)"
+                    >
+                        Docked
+                    </button>
+                </div>
+                <div class="potControls">
+                    <label>
+                        Pots
+                        <input
+                            type="number"
+                            min="0"
+                            [max]="boatCapacity(boat)"
+                            [value]="boat.pots"
+                            (change)="setPots(boat, $event)"
+                        />
+                    </label>
+                    <button type="button" (click)="fillBoat(boat)">Fill her up</button>
+                </div>
+            </div>
+        }
+    </div>
 }
-@if (setup.rentDueTomorrow && setup.rentWarning) {
-    <p [class.alert]="setup.rentDueTomorrow">
-        {{ setup.rentValue }}💰 in rent will be taken from ye tomorrow! Ye don't have enough money at the
-        moment! Get lobstering!</p>
-}
-<table>
-    <tr>
-        <td>🏺</td>
-        <td class="price">{{ setup.potPrice }}💰</td>
-        <td class="actions">
-            <button class="add" type="submit" (click)="buyPot()">Buy</button>
-            <button class="remove" type="submit" (click)="gameplayService.sellPot(setup)">Sell</button>
-        </td>
-    </tr>
-    <tr>
-        <td><img src="assets/lobster.png" alt="Lobster image"> Onshore</td>
-        <td class="price">{{ setup.onshorePrice }}💰</td>
-        <td class="actions">
-            <input type="number" min="0" [max]="progressService.onshoreAvailablePots" [(ngModel)]="progressService.potsOnshore"
-                (blur)="checkMaximumOnshore()" (keyup.enter)="moveNext(onshore, offshore)" #onshore>
-        </td>
-    </tr>
-    <tr>
-        <td><img src="assets/lobster.png" alt="Lobster image"> Offshore</td>
-        <td class="price">{{ setup.offshorePrice }}💰</td>
-        <td class="actions">
-            <input type="number" min="0" [max]="progressService.offshoreAvailablePots" [(ngModel)]="progressService.potsOffshore"
-                (blur)="checkMaximumOffshore()" (keyup.enter)="moveNext(onshore, offshore)" #offshore>
-        </td>
-    </tr>
-</table>
+

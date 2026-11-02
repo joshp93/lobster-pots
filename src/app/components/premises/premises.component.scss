@@ -1,0 +1,38 @@
+.premises-content {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+            border-bottom: 1px solid rgba(250, 128, 114, 0.5);
+            padding: 0.5rem;
+            text-align: left;
+        }
+    }
+
+    button {
+        border: none;
+        font-family: inherit;
+        font-size: 1rem;
+        padding: 0.5rem;
+        border-radius: 5px;
+        background-color: lightgreen;
+    }
+
+    button:disabled {
+        background-color: lightgray;
+    }
+
+    .good {
+        background-color: rgba(144, 238, 144, 0.6);
+        border-radius: 5px;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .message {
+        background-color: rgba(46, 241, 255, 0.4);
+        border-radius: 5px;
+        padding: 0.25rem 0.5rem;
+    }
+}

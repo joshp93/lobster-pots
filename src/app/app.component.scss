@@ -1,6 +1,49 @@
+:host {
+    display: block;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.app-shell {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100%;
+    padding-left: 30%;
+    background-color: #fff;
+}
+
 app-progress {
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: salmon;
     z-index: 10;
+}
+
+app-gameplay {
+    display: block;
+    box-sizing: border-box;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .app-shell {
+        padding-left: 0;
+    }
+
+    app-progress {
+        top: auto;
+        bottom: 0;
+        width: 100%;
+        height: 30vh;
+    }
+
+    app-gameplay {
+        height: 70vh;
+    }
 }

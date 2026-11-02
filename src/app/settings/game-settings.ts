@@ -1,14 +1,15 @@
 export const GAME_SETTINGS = {
     openingCash: 80,
-    openingPots: 5,
+    openingPots: 10,
     startDay: 1,
     potPrice: 20,
-    onshorePrice: 2,
-    offshorePrice: 6,
-    randomNumberMax: 100,
-    goodWeatherMax: 90,
-    catchChanceMax: 70,
-    rentValue: 80,
-    rentInterval: 7,
-    rentIncreaseInterval: 10
-}
+    potResaleMultiplier: 0.5,
+    catchesPerPot: 2,
+    baseCatchChance: 70,
+    minCatchChance: 20,
+    maxCatchChance: 95,
+    rentIntervalDays: 7,
+    seasonLengthDays: 14,
+    premisesOfferIntervalDays: 10,
+    offersPerCycle: 3
+};

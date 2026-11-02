@@ -1,0 +1,16 @@
+<div
+    class="modal"
+    [class.hidden]="!show"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="title"
+    [attr.aria-hidden]="!show"
+>
+    <div class="modal-bar">
+        <span class="modal-title">{{ title }}</span>
+        <button type="button" class="modal-close" (click)="close()">X</button>
+    </div>
+    <div class="modal-content">
+        <ng-content />
+    </div>
+</div>
